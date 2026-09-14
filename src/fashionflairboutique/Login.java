@@ -65,6 +65,11 @@ public class Login extends javax.swing.JFrame {
         jBtnLogin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jBtnLogin.setForeground(new java.awt.Color(255, 255, 255));
         jBtnLogin.setText("Login");
+        jBtnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLoginActionPerformed(evt);
+            }
+        });
 
         jPFPassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
@@ -146,6 +151,10 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnLoginActionPerformed
 
     /**
      * @param args the command line arguments
