@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,7 +29,7 @@ public class UserDAO {
         // System.out.println("Input Password: '" + plainPassword + "'");
         // System.out.println("Generated SHA-256 Hash: " + hashedPassword);
 
-        String query = "SELECT user_id, username, email, full_name, role, is_active " +
+        String query = "SELECT user_id, username, email, full_name, role, status " +
                        "FROM users WHERE (email = ? OR username = ?) AND password_hash = ?";
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
@@ -39,8 +41,12 @@ public class UserDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    if (!rs.getBoolean("is_active")) {
-                        return null; // Account disabled
+                    
+                    String status = rs.getString("status");
+                
+                    // Block authentication if user is not Active
+                    if (!"Active".equalsIgnoreCase(status)) {
+                        return null; // Account disabled or inactive
                     }
 
                     return new User(
@@ -48,7 +54,9 @@ public class UserDAO {
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("full_name"),
-                        rs.getString("role")
+                        rs.getString("role"),
+                        rs.getString("status")
+                            
                     );
                 }
             }
@@ -62,7 +70,7 @@ public class UserDAO {
     public boolean updatePassword(String identifier, String newPlainPassword) throws SQLException {
         String hashedPassword = hashPassword(newPlainPassword);
 
-        String query = "UPDATE users SET password_hash = ? WHERE (email = ? OR username = ?) AND is_active = 1";
+        String query = "UPDATE users SET full_name=?, role=?, status=? WHERE user_id=?";
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -73,6 +81,8 @@ public class UserDAO {
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
+            
+            
         }
     }
 
@@ -94,6 +104,73 @@ public class UserDAO {
             
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 algorithm not available", e);
+        }
+    }
+    
+    public List<User> getAllUsers() throws SQLException {
+        List<User> userList = new ArrayList<>();
+        String query = "SELECT user_id, username, email, full_name, role, status FROM users";
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                User user = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("full_name"),
+                    rs.getString("role"),
+                    rs.getString("status")
+                );
+                userList.add(user);
+            }
+        }
+        return userList;
+    }
+    
+    // 1. ADD USER
+    public boolean addUser(User user, String plainPassword) throws SQLException {
+        String query = "INSERT INTO users (username, email, full_name, role, status, password_hash) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getFullName());
+            stmt.setString(4, user.getRole());
+            stmt.setString(5, user.getStatus());
+            stmt.setString(6, hashPassword(plainPassword));
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    // 2. UPDATE USER
+    public boolean updateUser(User user) throws SQLException {
+        String query = "UPDATE users SET email = ?, full_name = ?, role = ?, status = ? WHERE user_id = ?";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getFullName());
+            stmt.setString(3, user.getRole());
+            stmt.setString(4, user.getStatus());
+            stmt.setInt(5, user.getUserId());
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    // 3. DELETE USER
+    public boolean deleteUser(int userId) throws SQLException {
+        String query = "DELETE FROM users WHERE user_id = ?";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, userId);
+            return stmt.executeUpdate() > 0;
         }
     }
     

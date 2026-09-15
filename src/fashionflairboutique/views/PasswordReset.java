@@ -39,7 +39,7 @@ public class PasswordReset extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLblForgotPass = new javax.swing.JLabel();
+        jLblLogin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jCBShowPass = new javax.swing.JCheckBox();
         jBtnResetPass = new javax.swing.JButton();
@@ -50,14 +50,20 @@ public class PasswordReset extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 252, 246));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Fashion Flair Boutique Logo re.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
-        jLblForgotPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLblForgotPass.setText("Back to Login");
-        jPanel1.add(jLblForgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 670, -1, -1));
+        jLblLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLblLogin.setText("Back to Login");
+        jLblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLblLoginMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 670, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));
@@ -169,6 +175,12 @@ public class PasswordReset extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnResetPassActionPerformed
 
+    private void jLblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblLoginMouseClicked
+        Login lg = new Login();
+        lg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLblLoginMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -211,7 +223,7 @@ public class PasswordReset extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLblForgotPass;
+    private javax.swing.JLabel jLblLogin;
     private javax.swing.JPasswordField jPFPassword;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTFEmail;
