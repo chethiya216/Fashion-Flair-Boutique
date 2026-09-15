@@ -147,7 +147,7 @@ public class Login extends javax.swing.JFrame {
 
                 // 3. Role-Based Navigation
                 if ("Store Manager".equalsIgnoreCase(loggedInUser.getRole())) {
-                    new fashionflairboutique.views.ManageProducts(loggedInUser).setVisible(true);
+                    new fashionflairboutique.views.MainDashboard(loggedInUser).setVisible(true);
                 } else {
                     new fashionflairboutique.views.POS(loggedInUser).setVisible(true);
                 }
