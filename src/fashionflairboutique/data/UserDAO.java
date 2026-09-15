@@ -57,6 +57,7 @@ public class UserDAO {
                         rs.getString("role"),
                         rs.getString("status")
                             
+                            
                     );
                 }
             }
@@ -70,7 +71,7 @@ public class UserDAO {
     public boolean updatePassword(String identifier, String newPlainPassword) throws SQLException {
         String hashedPassword = hashPassword(newPlainPassword);
 
-        String query = "UPDATE users SET full_name=?, role=?, status=? WHERE user_id=?";
+        String query = "UPDATE users SET full_name=?, role=?, hashedPassword=?, status=? WHERE user_id=?";
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -130,34 +131,130 @@ public class UserDAO {
         return userList;
     }
     
-    // 1. ADD USER
-    public boolean addUser(User user, String plainPassword) throws SQLException {
-        String query = "INSERT INTO users (username, email, full_name, role, status, password_hash) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnector.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+    public String validateUserForAdd(User user, String plainPassword) {
+        // 1. Basic Null and Empty Checks
+        if (user == null) {
+            return "User data cannot be null.";
+        }
+        if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+            return "Username is required.";
+        }
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            return "Email address is required.";
+        }
+        if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
+            return "Full Name is required.";
+        }
+        if (plainPassword == null || plainPassword.isEmpty()) {
+            return "Password is required.";
+        }
 
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getFullName());
+        // 2. Format & Pattern Checks
+        if (!user.getUsername().matches("^[a-zA-Z0-9_]{3,20}$")) {
+            return "Username must be 3-20 alphanumeric characters or underscores.";
+        }
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        if (!user.getEmail().matches(emailRegex)) {
+            return "Invalid email format.";
+        }
+
+        if (plainPassword.length() < 6) {
+            return "Password must be at least 6 characters long.";
+        }
+
+        // 3. Database Integrity Checks (Uniqueness)
+        String checkSql = "SELECT username, email FROM users WHERE username = ? OR email = ?";
+        
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(checkSql)) {
+
+            stmt.setString(1, user.getUsername().trim());
+            stmt.setString(2, user.getEmail().trim());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String existingUsername = rs.getString("username");
+                    String existingEmail = rs.getString("email");
+
+                    if (user.getUsername().equalsIgnoreCase(existingUsername)) {
+                        return "Username '" + user.getUsername() + "' is already taken.";
+                    }
+                    if (user.getEmail().equalsIgnoreCase(existingEmail)) {
+                        return "Email address is already registered.";
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Database validation error: " + e.getMessage();
+        }
+
+        // Return null if all validations pass
+        return null; 
+    }
+
+    /**
+     * Inserts a new user after running DAO validation.
+     */
+    public boolean addUser(User user, String plainPassword) {
+        // 1. Validate inputs before executing SQL
+        String validationError = validateUserForAdd(user, plainPassword);
+        if (validationError != null) {
+            System.err.println("Validation failed: " + validationError);
+            return false;
+        }
+
+        String sql = "INSERT INTO users (username, email, full_name, role, status, password_hash) VALUES (?, ?, ?, ?, ?, ?)";
+        String hashedPassword = hashPassword(plainPassword);
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getUsername().trim());
+            stmt.setString(2, user.getEmail().trim());
+            stmt.setString(3, user.getFullName().trim());
             stmt.setString(4, user.getRole());
             stmt.setString(5, user.getStatus());
-            stmt.setString(6, hashPassword(plainPassword));
+            stmt.setString(6, hashedPassword);
 
-            return stmt.executeUpdate() > 0;
+            int rowsInserted = stmt.executeUpdate();
+            return rowsInserted > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Database Exception in addUser: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
     // 2. UPDATE USER
     public boolean updateUser(User user) throws SQLException {
-        String query = "UPDATE users SET email = ?, full_name = ?, role = ?, status = ? WHERE user_id = ?";
+        boolean updatePassword = user.getPassword() != null && !user.getPassword().trim().isEmpty();
+
+        String query;
+        if (updatePassword) {
+            query = "UPDATE users SET username = ?, full_name = ?, email = ?, role = ?, status = ?, password_hash = ? WHERE user_id = ?";
+        } else {
+            query = "UPDATE users SET username = ?, full_name = ?, email = ?, role = ?, status = ? WHERE user_id = ?";
+        }
+
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, user.getEmail());
+            stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getFullName());
-            stmt.setString(3, user.getRole());
-            stmt.setString(4, user.getStatus());
-            stmt.setInt(5, user.getUserId());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getRole());
+            stmt.setString(5, user.getStatus());
+
+            if (updatePassword) {
+                stmt.setString(6, hashPassword(user.getPassword()));
+                stmt.setInt(7, user.getUserId());
+            } else {
+                stmt.setInt(6, user.getUserId());
+            }
 
             return stmt.executeUpdate() > 0;
         }

@@ -181,7 +181,7 @@ public class ManageUser extends javax.swing.JFrame {
 
         jLblPassword.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblPassword.setText("Password");
-        jPanel1.add(jLblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, -1, -1));
+        jPanel1.add(jLblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 610, -1, -1));
 
         jBtnDelete.setBackground(new java.awt.Color(255, 0, 0));
         jBtnDelete.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
@@ -192,13 +192,13 @@ public class ManageUser extends javax.swing.JFrame {
                 jBtnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, -1, -1));
+        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 810, -1, -1));
 
         jTFUname.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 300, -1));
 
         jPFPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 300, -1));
+        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, 300, -1));
 
         jLblUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jPanel1.add(jLblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 130, -1));
@@ -219,15 +219,15 @@ public class ManageUser extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel6.setText("Role :");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel7.setText("Status :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
 
         jLblConPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblConPass.setText("Confirm Password");
-        jPanel1.add(jLblConPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 670, -1, -1));
+        jPanel1.add(jLblConPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, -1, -1));
 
         jCBResetPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 16)); // NOI18N
         jCBResetPass.setText("Reset Password?");
@@ -241,10 +241,10 @@ public class ManageUser extends javax.swing.JFrame {
                 jCBResetPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCBResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 580, -1, -1));
+        jPanel1.add(jCBResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 600, -1, -1));
 
         jPFConPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jPFConPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 700, 300, -1));
+        jPanel1.add(jPFConPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 720, 300, -1));
 
         jCBShowPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 16)); // NOI18N
         jCBShowPass.setText("Show Password");
@@ -253,7 +253,7 @@ public class ManageUser extends javax.swing.JFrame {
                 jCBShowPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 740, -1, -1));
+        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 760, -1, -1));
 
         jBtnSave.setBackground(new java.awt.Color(0, 102, 255));
         jBtnSave.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
@@ -264,7 +264,7 @@ public class ManageUser extends javax.swing.JFrame {
                 jBtnSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 800, 80, -1));
+        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 810, 80, -1));
 
         jBtnUpdate.setBackground(new java.awt.Color(0, 195, 145));
         jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
@@ -275,11 +275,11 @@ public class ManageUser extends javax.swing.JFrame {
                 jBtnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 800, -1, -1));
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 810, -1, -1));
 
         jComboBRole.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jComboBRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role", "Store Manager", "Sales Assistant" }));
-        jPanel1.add(jComboBRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 300, 40));
+        jPanel1.add(jComboBRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 300, 40));
 
         jLabel10.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel10.setText("Username :");
@@ -313,7 +313,7 @@ public class ManageUser extends javax.swing.JFrame {
 
         jComboBStatus.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jComboBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Status", "Active", "Inactive" }));
-        jPanel1.add(jComboBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 300, 40));
+        jPanel1.add(jComboBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 300, 40));
 
         jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 860, -1));
@@ -326,7 +326,7 @@ public class ManageUser extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
         );
 
         pack();
@@ -339,11 +339,12 @@ public class ManageUser extends javax.swing.JFrame {
         String fullName = jTFFullName.getText().trim();
         String role = jComboBRole.getSelectedItem() != null ? jComboBRole.getSelectedItem().toString() : "";
         String status = jComboBStatus.getSelectedItem() != null ? jComboBStatus.getSelectedItem().toString() : "";
+
         String password = new String(jPFPassword.getPassword());
         String confirmPassword = new String(jPFConPassword.getPassword());
 
-        // --- Presentation Layer Validation ---
-        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || fullName.isEmpty()) {
+        // Basic GUI-level checks
+        if (username.isEmpty() || email.isEmpty() || fullName.isEmpty() || password.isEmpty()) {
             UIUtils.showError(jLblMessage, "All fields are required!");
             return;
         }
@@ -353,22 +354,23 @@ public class ManageUser extends javax.swing.JFrame {
             return;
         }
 
-        // --- Database Operation ---
-        try {
-            User newUser = new User(0, username, email, fullName, role, status);
-            UserDAO dao = new UserDAO();
+        User newUser = new User(0, username, email, fullName, role, status);
+        UserDAO dao = new UserDAO();
 
-            if (dao.addUser(newUser, password)) {
-                UIUtils.showSuccess(jLblMessage, "User added successfully!");
-                loadUsersTable();
-                clearFormFields(); // Only clear fields on successful save
-            } else {
-                UIUtils.showError(jLblMessage, "Failed to add user!");
-            }
+        // Check validation message explicitly
+        String validationError = dao.validateUserForAdd(newUser, password);
+        if (validationError != null) {
+            UIUtils.showError(jLblMessage, validationError);
+            return; // Stops here and shows exact validation failure on label
+        }
 
-        } catch (Exception e) {
-            UIUtils.showError(jLblMessage, "Database error: " + e.getMessage());
-            e.printStackTrace();
+        // Execute save
+        if (dao.addUser(newUser, password)) {
+            UIUtils.showSuccess(jLblMessage, "User added successfully!");
+            loadUsersTable();
+            clearFormFields();
+        } else {
+            UIUtils.showError(jLblMessage, "Database error: Could not insert user.");
         }
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
@@ -391,13 +393,17 @@ public class ManageUser extends javax.swing.JFrame {
             jComboBRole.setSelectedItem(role);
             jComboBStatus.setSelectedItem(status);
             
+            // Uncheck reset pass on row selection
+            if (jCBResetPass.isSelected()) {
+                jCBResetPass.setSelected(false);
+            }
+            
         }
     }//GEN-LAST:event_jTableUsersMouseClicked
 
     private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
         try {
             if (jTFUserID.getText().trim().isEmpty()) {
-//                showStatusMessage("Select a user from the table to update!", false);
                 UIUtils.showError(jLblMessage, "Select a user from the table to update!");
                 return;
             }
@@ -406,25 +412,47 @@ public class ManageUser extends javax.swing.JFrame {
             String username = jTFUname.getText().trim();
             String email = jTFEmail.getText().trim();
             String fullName = jTFFullName.getText().trim();
-            String role = jComboBRole.getSelectedItem().toString();
-            String status = jComboBStatus.getSelectedItem().toString();
+            String role = jComboBRole.getSelectedItem() != null ? jComboBRole.getSelectedItem().toString() : "";
+            String status = jComboBStatus.getSelectedItem() != null ? jComboBStatus.getSelectedItem().toString() : "";
 
             User user = new User(userId, username, email, fullName, role, status);
             UserDAO dao = new UserDAO();
 
-            if (dao.updateUser(user)) {
-//                showStatusMessage("User updated successfully!", true);
-                UIUtils.showSuccess(jLblMessage, "User updated successfully!");
-                loadUsersTable(); // Refresh JTable
-                clearFormFields();
-            } else {
-//                showStatusMessage("Update failed. User not found.", false);
-                UIUtils.showError(jLblMessage, "Update failed. User not found!");
-            }
-            
+            // Optional password reset handling
+            if (jCBResetPass.isSelected()) {
+                String password = new String(jPFPassword.getPassword());
+                String confirmPassword = new String(jPFConPassword.getPassword());
 
+                if (password.isEmpty()) {
+                    UIUtils.showError(jLblMessage, "Please enter a new password!");
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    UIUtils.showError(jLblMessage, "Passwords do not match!");
+                    return;
+                }
+
+                user.setPassword(password); // Set plain password for hashing inside update method
+            }
+
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this, "Are you sure you want to update this user?", "Confirm Update", javax.swing.JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                if (dao.updateUser(user)) {
+                    UIUtils.showSuccess(jLblMessage, "User updated successfully!");
+                    loadUsersTable();
+                    clearFormFields();
+                } else {
+                    UIUtils.showError(jLblMessage, "Update failed. User not found!");
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            UIUtils.showError(jLblMessage, "Invalid User ID format!");
         } catch (Exception e) {
-//            showStatusMessage("Error updating user: " + e.getMessage(), false);
             UIUtils.showError(jLblMessage, "Error updating user: " + e.getMessage());
         }
     }//GEN-LAST:event_jBtnUpdateActionPerformed
@@ -432,25 +460,30 @@ public class ManageUser extends javax.swing.JFrame {
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
         try {
             if (jTFUserID.getText().trim().isEmpty()) {
-//                showStatusMessage("Select a user from the table to delete!", false);
                 UIUtils.showError(jLblMessage, "Select a user from the table to delete!");
                 return;
             }
 
             int userId = Integer.parseInt(jTFUserID.getText().trim());
-            UserDAO dao = new UserDAO();
 
-            if (dao.deleteUser(userId)) {
-//                showStatusMessage("User deleted successfully!", true);
-                UIUtils.showSuccess(jLblMessage, "User deleted successfully!");
-                loadUsersTable(); // Refresh JTable
-            } else {
-//                showStatusMessage("Delete failed. User not found.", false);
-                UIUtils.showError(jLblMessage, "Delete failed. User not found!");
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this, "Are you sure you want to delete this user?", "Confirm Delete", javax.swing.JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                UserDAO dao = new UserDAO();
+                if (dao.deleteUser(userId)) {
+                    UIUtils.showSuccess(jLblMessage, "User deleted successfully!");
+                    loadUsersTable();
+                    clearFormFields();
+                } else {
+                    UIUtils.showError(jLblMessage, "Delete failed. User not found!");
+                }
             }
 
+        } catch (NumberFormatException e) {
+            UIUtils.showError(jLblMessage, "Invalid User ID format!");
         } catch (Exception e) {
-//            showStatusMessage("Error deleting user: " + e.getMessage(), false);
             UIUtils.showError(jLblMessage, "Error deleting user: " + e.getMessage());
         }
     }//GEN-LAST:event_jBtnDeleteActionPerformed
