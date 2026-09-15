@@ -4,6 +4,13 @@
  */
 package fashionflairboutique.views;
 
+import fashionflairboutique.data.UserDAO;
+import fashionflairboutique.models.User;
+import fashionflairboutique.views.ManageProducts;
+import fashionflairboutique.views.POS;
+import javax.swing.JOptionPane;
+import fashionflairboutique.views.PasswordReset;
+
 /**
  *
  * @author Chethiya
@@ -31,7 +38,7 @@ public class Login extends javax.swing.JFrame {
         jCBShowPass = new javax.swing.JCheckBox();
         jBtnLogin = new javax.swing.JButton();
         jPFPassword = new javax.swing.JPasswordField();
-        jTFUname = new javax.swing.JTextField();
+        jTFEmail = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,6 +67,11 @@ public class Login extends javax.swing.JFrame {
 
         jCBShowPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jCBShowPass.setText("Show Password");
+        jCBShowPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBShowPassActionPerformed(evt);
+            }
+        });
 
         jBtnLogin.setBackground(new java.awt.Color(0, 102, 255));
         jBtnLogin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -73,18 +85,23 @@ public class Login extends javax.swing.JFrame {
 
         jPFPassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
-        jTFUname.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTFEmail.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Password :");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setText("Username :");
+        jLabel4.setText("Email :");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Fashion Flair Boutique Logo re.png"))); // NOI18N
 
         jLblForgotPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLblForgotPass.setText("Forgot Password?");
+        jLblForgotPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLblForgotPassMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,19 +117,16 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 127, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3))
-                            .addGap(290, 290, 290))
-                        .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jCBShowPass)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jPFPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTFUname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(113, 113, 113)))
+                                    .addComponent(jTFEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(113, 113, 113))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(132, 132, 132))
@@ -134,7 +148,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFUname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -153,8 +167,73 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
-        // TODO add your handling code here:
+        String email = jTFEmail.getText().trim();
+        String password = new String(jPFPassword.getPassword()).trim();
+
+        // 1. Precise Input Validation
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your Email!", 
+                    "Validation Error", JOptionPane.WARNING_MESSAGE);
+            jTFEmail.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your Password!", 
+                    "Validation Error", JOptionPane.WARNING_MESSAGE);
+            jPFPassword.requestFocus();
+            return;
+        }
+
+        try {
+            // 2. Data Access Layer Call
+            fashionflairboutique.data.UserDAO userDAO = new fashionflairboutique.data.UserDAO();
+            fashionflairboutique.models.User loggedInUser = userDAO.authenticateUser(email, password);
+
+            if (loggedInUser != null) {
+                JOptionPane.showMessageDialog(this, "Welcome, " + loggedInUser.getFullName() + "!",
+                        "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+
+                // 3. Role-Based Navigation
+                if ("Store Manager".equalsIgnoreCase(loggedInUser.getRole())) {
+                    new fashionflairboutique.views.ManageProducts(loggedInUser).setVisible(true);
+                } else {
+                    new fashionflairboutique.views.POS(loggedInUser).setVisible(true);
+                }
+
+                // Clean single dispose call after launching target window
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid credentials or inactive account.", 
+                        "Login Failed", JOptionPane.ERROR_MESSAGE);
+                jPFPassword.setText("");
+                jPFPassword.requestFocus();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(),
+                    "System Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_jBtnLoginActionPerformed
+
+    private void jCBShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBShowPassActionPerformed
+        if (jCBShowPass.isSelected()) {
+            jPFPassword.setEchoChar((char) 0); 
+            
+        } else {
+            jPFPassword.setEchoChar('*'); 
+        }
+    }//GEN-LAST:event_jCBShowPassActionPerformed
+
+    private void jLblForgotPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblForgotPassMouseClicked
+        String email = jTFEmail.getText().trim();
+        PasswordReset pr = new PasswordReset(email);
+        pr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLblForgotPassMouseClicked
 
     /**
      * @param args the command line arguments
@@ -201,6 +280,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLblForgotPass;
     private javax.swing.JPasswordField jPFPassword;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTFUname;
+    private javax.swing.JTextField jTFEmail;
     // End of variables declaration//GEN-END:variables
 }
