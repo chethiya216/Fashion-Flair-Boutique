@@ -4,6 +4,7 @@
  */
 package fashionflairboutique.views;
 
+import javax.swing.JOptionPane;
 /**
  *
  * @author Chethiya
@@ -14,7 +15,17 @@ public class PasswordReset extends javax.swing.JFrame {
      * Creates new form PasswordReset
      */
     public PasswordReset() {
+        initComponents();   
+    }
+    
+    public PasswordReset(String email) {
         initComponents();
+        
+        // Pre-fill the text field passed from Login
+        jTFEmail.setText(email);
+        
+        // Put focus directly on the password field
+        jPFPassword.requestFocus();
     }
 
     /**
@@ -26,21 +37,137 @@ public class PasswordReset extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLblForgotPass = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jCBShowPass = new javax.swing.JCheckBox();
+        jBtnResetPass = new javax.swing.JButton();
+        jPFPassword = new javax.swing.JPasswordField();
+        jTFEmail = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Fashion Flair Boutique Logo re.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
+
+        jLblForgotPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLblForgotPass.setText("Back to Login");
+        jPanel1.add(jLblForgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 670, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(12, 192, 223));
+        jLabel2.setText("Reset Password");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, -1, -1));
+
+        jCBShowPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jCBShowPass.setText("Show Password");
+        jCBShowPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBShowPassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, -1, -1));
+
+        jBtnResetPass.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnResetPass.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBtnResetPass.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnResetPass.setText("Reset Password");
+        jBtnResetPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnResetPassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 200, -1));
+
+        jPFPassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 520, 280, -1));
+
+        jTFEmail.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jPanel1.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 280, -1));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("Password :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setText("Email");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jCBShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBShowPassActionPerformed
+        if (jCBShowPass.isSelected()) {
+            jPFPassword.setEchoChar((char) 0);
+
+        } else {
+            jPFPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCBShowPassActionPerformed
+
+    private void jBtnResetPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnResetPassActionPerformed
+        String email = jTFEmail.getText().trim();
+        String newPassword = new String(jPFPassword.getPassword()).trim();
+
+        // 1. Precise Input Validation
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your Email or Username!",
+                "Validation Error", JOptionPane.WARNING_MESSAGE);
+            jTFEmail.requestFocus();
+            return;
+        }
+
+        if (newPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your New Password!",
+                "Validation Error", JOptionPane.WARNING_MESSAGE);
+            jPFPassword.requestFocus();
+            return;
+        }
+
+        try {
+            // 2. Data Access Layer Call
+            fashionflairboutique.data.UserDAO userDAO = new fashionflairboutique.data.UserDAO();
+            boolean isUpdated = userDAO.updatePassword(email, newPassword);
+
+            // 3. Process Update Result
+            if (isUpdated) {
+                JOptionPane.showMessageDialog(this, "Password updated successfully! Please log in with your new password.",
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                // Redirect back to Login view
+                new fashionflairboutique.views.Login().setVisible(true);
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Account not found or account is inactive.",
+                    "Reset Failed", JOptionPane.ERROR_MESSAGE);
+                jPFPassword.setText("");
+                jPFPassword.requestFocus();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(),
+                "System Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jBtnResetPassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +205,15 @@ public class PasswordReset extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnResetPass;
+    private javax.swing.JCheckBox jCBShowPass;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLblForgotPass;
+    private javax.swing.JPasswordField jPFPassword;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTFEmail;
     // End of variables declaration//GEN-END:variables
 }

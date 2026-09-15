@@ -4,6 +4,8 @@
  */
 package fashionflairboutique.views;
 
+import fashionflairboutique.models.User;
+import javax.swing.JFrame;
 /**
  *
  * @author Chethiya
@@ -15,6 +17,15 @@ public class ManageProducts extends javax.swing.JFrame {
      */
     public ManageProducts() {
         initComponents();
+    }
+    
+    private User currentUser;
+    
+    public ManageProducts(User user) {
+        initComponents();
+        this.currentUser = user;
+        
+        this.setTitle("Fashion Flair Boutique - Manage Products (" + currentUser.getFullName() + ")");
     }
 
     /**
@@ -40,6 +51,7 @@ public class ManageProducts extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
