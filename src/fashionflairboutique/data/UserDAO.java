@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -48,7 +50,9 @@ public class UserDAO {
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("full_name"),
-                        rs.getString("role")
+                        rs.getString("role"),
+                        rs.getBoolean("is_active")
+                            
                     );
                 }
             }
@@ -95,6 +99,29 @@ public class UserDAO {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 algorithm not available", e);
         }
+    }
+    
+    public List<User> getAllUsers() throws SQLException {
+        List<User> userList = new ArrayList<>();
+        String query = "SELECT user_id, username, email, full_name, role, is_active FROM users";
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                User user = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("full_name"),
+                    rs.getString("role"),
+                    rs.getBoolean("is_active")
+                );
+                userList.add(user);
+            }
+        }
+        return userList;
     }
     
     

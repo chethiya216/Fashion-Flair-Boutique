@@ -4,6 +4,12 @@
  */
 package fashionflairboutique.views;
 
+import fashionflairboutique.data.UserDAO;
+import fashionflairboutique.models.User;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Chethiya
@@ -15,8 +21,42 @@ public class ManageUser extends javax.swing.JFrame {
      */
     public ManageUser() {
         initComponents();
+        loadUsersTable();
     }
+    
+    private void loadUsersTable() {
+        // Get the model attached to your GUI JTable
+        DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
+        
+        // Clear existing table rows before loading fresh data
+        model.setRowCount(0);
 
+        try {
+            UserDAO userDAO = new UserDAO();
+            List<User> userList = userDAO.getAllUsers();
+
+            // Loop through each user and add a row to the table
+            for (User user : userList) {
+                Object[] row = new Object[] {
+                    user.getUserId(),
+                    user.getUsername(),
+                    user.getFullName(),
+                    user.getEmail(),
+                    user.getRole(),
+                    user.getStatusDisplay()
+                };
+                model.addRow(row);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Error loading user list: " + e.getMessage(),
+                "Database Error", 
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +66,212 @@ public class ManageUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableUsers = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jBtnDelete = new javax.swing.JButton();
+        jTFUname = new javax.swing.JTextField();
+        jPFPassword = new javax.swing.JPasswordField();
+        jLblUser = new javax.swing.JLabel();
+        jTFFullName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTFEmail = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTFRole = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jCBResetPass = new javax.swing.JCheckBox();
+        jPFConPassword = new javax.swing.JPasswordField();
+        jCBShowPass = new javax.swing.JCheckBox();
+        jBtnSave = new javax.swing.JButton();
+        jBtnUpdate = new javax.swing.JButton();
+        jComboBStatus = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLblTime1 = new javax.swing.JLabel();
+        jLblDate1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1300, 850));
+        setPreferredSize(new java.awt.Dimension(1300, 831));
+
+        jPanel1.setBackground(new java.awt.Color(255, 252, 246));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(12, 192, 223));
+        jLabel3.setText("Manage Users");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, -1, -1));
+
+        jTableUsers.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jTableUsers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Username", "Full Name", "Email", "Role", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableUsersMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableUsers);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 900, 580));
+
+        jLabel1.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel1.setText("Password");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, -1, -1));
+
+        jBtnDelete.setBackground(new java.awt.Color(255, 0, 0));
+        jBtnDelete.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnDelete.setText("Delete");
+        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 720, -1, -1));
+
+        jTFUname.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 300, -1));
+
+        jPFPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 300, -1));
+
+        jLblUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblUser.setText("tt");
+        jPanel1.add(jLblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 130, 130, -1));
+
+        jTFFullName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 300, -1));
+
+        jLabel4.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel4.setText("Full Name :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+
+        jTFEmail.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 300, -1));
+
+        jLabel5.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel5.setText("Email :");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+
+        jTFRole.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 300, -1));
+
+        jLabel6.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel6.setText("Role :");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel7.setText("Status :");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel8.setText("Confirm Password");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, -1, -1));
+
+        jCBResetPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 16)); // NOI18N
+        jCBResetPass.setText("Reset Password?");
+        jPanel1.add(jCBResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, -1, -1));
+
+        jPFConPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jPFConPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 300, -1));
+
+        jCBShowPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 16)); // NOI18N
+        jCBShowPass.setText("Show Password");
+        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 660, -1, -1));
+
+        jBtnSave.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnSave.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnSave.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnSave.setText("Save");
+        jBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSaveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 720, 80, -1));
+
+        jBtnUpdate.setBackground(new java.awt.Color(0, 195, 145));
+        jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnUpdate.setText("Update");
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 720, -1, -1));
+
+        jComboBStatus.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jComboBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
+        jPanel1.add(jComboBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 300, 40));
+
+        jLabel10.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel10.setText("Username :");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel11.setText("User :");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel9.setText("Date  :");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 130, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel12.setText("Time :");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 130, -1, -1));
+
+        jLblTime1.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblTime1.setText("tt");
+        jPanel1.add(jLblTime1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 130, 130, -1));
+
+        jLblDate1.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblDate1.setText("tt");
+        jPanel1.add(jLblDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 130, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnSaveActionPerformed
+
+    private void jTableUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsersMouseClicked
+        
+    }//GEN-LAST:event_jTableUsersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +309,34 @@ public class ManageUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnDelete;
+    private javax.swing.JButton jBtnSave;
+    private javax.swing.JButton jBtnUpdate;
+    private javax.swing.JCheckBox jCBResetPass;
+    private javax.swing.JCheckBox jCBShowPass;
+    private javax.swing.JComboBox<String> jComboBStatus;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLblDate1;
+    private javax.swing.JLabel jLblTime1;
+    private javax.swing.JLabel jLblUser;
+    private javax.swing.JPasswordField jPFConPassword;
+    private javax.swing.JPasswordField jPFPassword;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFEmail;
+    private javax.swing.JTextField jTFFullName;
+    private javax.swing.JTextField jTFRole;
+    private javax.swing.JTextField jTFUname;
+    private javax.swing.JTable jTableUsers;
     // End of variables declaration//GEN-END:variables
 }
