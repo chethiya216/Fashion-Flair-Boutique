@@ -15,19 +15,35 @@ import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import fashionflairboutique.models.User;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.Timer;
+
+
 /**
  *
  * @author Chethiya
  */
 public class ManageProducts extends javax.swing.JFrame {
 
+    private User currentUser;
+    private Timer clockTimer;
     /**
      * Creates new form AddProducts
      */
     public ManageProducts() {
         initComponents();
+        
+    }
+    
+    public ManageProducts(User loggedInUser) {
+        initComponents();
+        this.currentUser = loggedInUser;
+        
         initForm();
         attachSearchListeners();
+        showDetails();
 
         jTableShowProducts.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && jTableShowProducts.getSelectedRow() != -1) {
@@ -36,6 +52,30 @@ public class ManageProducts extends javax.swing.JFrame {
         });
     }
     
+    private void startLiveClock() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); // 12-hour format with AM/PM
+
+        // Update once immediately so labels aren't blank on open
+        LocalDateTime now = LocalDateTime.now();
+        jLblShowDate.setText(now.format(dateFormatter));
+        jLblShowTime.setText(now.format(timeFormatter));
+
+        // Create a timer that fires every 1000 milliseconds (1 second)
+        clockTimer = new Timer(1000, e -> {
+            LocalDateTime current = LocalDateTime.now();
+            jLblShowDate.setText(current.format(dateFormatter));
+            jLblShowTime.setText(current.format(timeFormatter));
+        });
+
+        clockTimer.start(); // Start the timer loop
+    }
+    
+    private void showDetails() {
+        jLblShowUser.setText(currentUser.getFullName() + "(" + currentUser.getRole() + ")");
+        startLiveClock();
+    }
+
     private int selectedProductId = -1;
     private boolean isEditingSelectedProduct = false;
 
@@ -253,6 +293,12 @@ public class ManageProducts extends javax.swing.JFrame {
         jTFDiscount = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLblShowTime = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLblShowUser = new javax.swing.JLabel();
+        jLblShowDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -436,6 +482,30 @@ public class ManageProducts extends javax.swing.JFrame {
         jLabel16.setText("Target Group :");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, -1, -1));
 
+        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setText("User :");
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 220, -1));
+
+        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel17.setText("Date  :");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setText("Time :");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setText("User :");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
+
+        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setText("User :");
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 290, -1));
+
+        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setText("User :");
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 290, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -610,6 +680,9 @@ public class ManageProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -619,6 +692,9 @@ public class ManageProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLblMessage;
+    private javax.swing.JLabel jLblShowDate;
+    private javax.swing.JLabel jLblShowTime;
+    private javax.swing.JLabel jLblShowUser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFBarcode;
