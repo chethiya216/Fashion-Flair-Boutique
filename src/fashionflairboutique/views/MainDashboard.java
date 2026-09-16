@@ -97,6 +97,11 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnProductCatalog.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnProductCatalog.setForeground(new java.awt.Color(255, 255, 255));
         jBtnProductCatalog.setText("Product Catalog");
+        jBtnProductCatalog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnProductCatalogActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnProductCatalog, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 420, 280, 100));
 
         jBtnManageDiscounts.setBackground(new java.awt.Color(230, 126, 34));
@@ -166,6 +171,12 @@ public class MainDashboard extends javax.swing.JFrame {
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnManageProductsActionPerformed
+
+    private void jBtnProductCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnProductCatalogActionPerformed
+        ProductCatalog pv = new ProductCatalog(currentUser);
+        pv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnProductCatalogActionPerformed
 
     /**
      * @param args the command line arguments
