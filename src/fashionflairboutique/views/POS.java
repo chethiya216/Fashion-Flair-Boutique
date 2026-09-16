@@ -37,22 +37,286 @@ public class POS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLblShowTime = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLblShowUser = new javax.swing.JLabel();
+        jLblShowDate = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableShowItems = new javax.swing.JTable();
+        jLblMessage = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jTFBarcode = new javax.swing.JTextField();
+        jTFPName = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jTFPrice = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jTFAvailableQty = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jTFQty = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jTFTotal = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jBtnCheckOut = new javax.swing.JButton();
+        jBtnAdd = new javax.swing.JButton();
+        jBtnUpdate = new javax.swing.JButton();
+        jBtnRemove = new javax.swing.JButton();
+        jBtnClearAll1 = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jTFPaidAmount = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jTFChange = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jTFDiscount = new javax.swing.JTextField();
+        jCBPaymentMethod = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(12, 192, 223));
+        jLabel2.setText("POS");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, -1, -1));
+
+        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setText("User :");
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 220, -1));
+
+        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel17.setText("Date  :");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setText("Time :");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setText("User :");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
+
+        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setText("User :");
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 290, -1));
+
+        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setText("User :");
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 290, -1));
+
+        jTableShowItems.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Product ID", "Barcode", "Product Name", "Quantity", "Unit Price", "Subtotal"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableShowItems);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 1020, 530));
+
+        jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 540, 40));
+
+        jLabel20.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel20.setText("Barcode");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+
+        jTFBarcode.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTFBarcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFBarcodeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTFBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 300, -1));
+
+        jTFPName.setEditable(false);
+        jTFPName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFPName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 300, -1));
+
+        jLabel21.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel21.setText("Product Name :");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
+
+        jTFPrice.setEditable(false);
+        jTFPrice.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 300, -1));
+
+        jLabel22.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel22.setText("Price :");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
+
+        jTFAvailableQty.setEditable(false);
+        jTFAvailableQty.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFAvailableQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 300, -1));
+
+        jLabel23.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel23.setText("Available Stock Quantity :");
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+
+        jTFQty.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 300, -1));
+
+        jLabel24.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel24.setText("Qty :");
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, -1, -1));
+
+        jTFTotal.setEditable(false);
+        jTFTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jPanel1.add(jTFTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 790, 300, -1));
+
+        jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel25.setText("Total :");
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 760, -1, -1));
+
+        jBtnCheckOut.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnCheckOut.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
+        jBtnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnCheckOut.setText("CheckOut");
+        jBtnCheckOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCheckOutActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 870, 330, 90));
+
+        jBtnAdd.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnAdd.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnAdd.setText("Add");
+        jBtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAddActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 740, 120, 50));
+
+        jBtnUpdate.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnUpdate.setText("Update");
+        jBtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnUpdateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 740, 120, 50));
+
+        jBtnRemove.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnRemove.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnRemove.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnRemove.setText("Remove");
+        jBtnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRemoveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 740, 110, 50));
+
+        jBtnClearAll1.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnClearAll1.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnClearAll1.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnClearAll1.setText("Clear All");
+        jBtnClearAll1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnClearAll1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnClearAll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 810, 330, 50));
+
+        jLabel26.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel26.setText("Paid :");
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 760, -1, -1));
+
+        jTFPaidAmount.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jPanel1.add(jTFPaidAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 790, 300, -1));
+
+        jLabel27.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel27.setText("Change :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 760, -1, -1));
+
+        jTFChange.setEditable(false);
+        jTFChange.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jPanel1.add(jTFChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 790, 300, -1));
+
+        jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel28.setText("Payment Method :");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel29.setText("Discount  Pct :");
+        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 640, -1, -1));
+
+        jTFDiscount.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jTFDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 670, 300, -1));
+
+        jCBPaymentMethod.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPanel1.add(jCBPaymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 300, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 983, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCheckOutActionPerformed
+        
+    }//GEN-LAST:event_jBtnCheckOutActionPerformed
+
+    private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnAddActionPerformed
+
+    private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnUpdateActionPerformed
+
+    private void jBtnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRemoveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRemoveActionPerformed
+
+    private void jTFBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFBarcodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFBarcodeActionPerformed
+
+    private void jBtnClearAll1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearAll1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnClearAll1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,5 +354,41 @@ public class POS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAdd;
+    private javax.swing.JButton jBtnCheckOut;
+    private javax.swing.JButton jBtnClearAll1;
+    private javax.swing.JButton jBtnRemove;
+    private javax.swing.JButton jBtnUpdate;
+    private javax.swing.JComboBox<String> jCBPaymentMethod;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLblMessage;
+    private javax.swing.JLabel jLblShowDate;
+    private javax.swing.JLabel jLblShowTime;
+    private javax.swing.JLabel jLblShowUser;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFAvailableQty;
+    private javax.swing.JTextField jTFBarcode;
+    private javax.swing.JTextField jTFChange;
+    private javax.swing.JTextField jTFDiscount;
+    private javax.swing.JTextField jTFPName;
+    private javax.swing.JTextField jTFPaidAmount;
+    private javax.swing.JTextField jTFPrice;
+    private javax.swing.JTextField jTFQty;
+    private javax.swing.JTextField jTFTotal;
+    private javax.swing.JTable jTableShowItems;
     // End of variables declaration//GEN-END:variables
 }
