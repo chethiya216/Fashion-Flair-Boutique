@@ -278,7 +278,7 @@ public class ManageUser extends javax.swing.JFrame {
         jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 810, -1, -1));
 
         jComboBRole.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jComboBRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role", "Store Manager", "Sales Assistant" }));
+        jComboBRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role", "Boutique Manager", "Sales Assistant" }));
         jPanel1.add(jComboBRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 300, 40));
 
         jLabel10.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
