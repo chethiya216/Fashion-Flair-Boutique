@@ -184,7 +184,7 @@ public class MainDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnProductCatalogActionPerformed
 
     private void jBtnPOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPOSActionPerformed
-        POS pos = new POS(currentUser);
+        POSFrame pos = new POSFrame(currentUser);
         pos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnPOSActionPerformed
