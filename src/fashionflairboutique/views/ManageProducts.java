@@ -41,9 +41,11 @@ public class ManageProducts extends javax.swing.JFrame {
         initComponents();
         this.currentUser = loggedInUser;
         
+        UIUtils.displayUserDetails(jLblShowUser, currentUser);
+        this.clockTimer = UIUtils.startLiveClock(jLblShowDate, jLblShowTime);
+        
         initForm();
         attachSearchListeners();
-        showDetails();
 
         jTableShowProducts.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && jTableShowProducts.getSelectedRow() != -1) {
@@ -52,30 +54,6 @@ public class ManageProducts extends javax.swing.JFrame {
         });
     }
     
-    private void startLiveClock() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); // 12-hour format with AM/PM
-
-        // Update once immediately so labels aren't blank on open
-        LocalDateTime now = LocalDateTime.now();
-        jLblShowDate.setText(now.format(dateFormatter));
-        jLblShowTime.setText(now.format(timeFormatter));
-
-        // Create a timer that fires every 1000 milliseconds (1 second)
-        clockTimer = new Timer(1000, e -> {
-            LocalDateTime current = LocalDateTime.now();
-            jLblShowDate.setText(current.format(dateFormatter));
-            jLblShowTime.setText(current.format(timeFormatter));
-        });
-
-        clockTimer.start(); // Start the timer loop
-    }
-    
-    private void showDetails() {
-        jLblShowUser.setText(currentUser.getFullName() + "(" + currentUser.getRole() + ")");
-        startLiveClock();
-    }
-
     private int selectedProductId = -1;
     private boolean isEditingSelectedProduct = false;
 
