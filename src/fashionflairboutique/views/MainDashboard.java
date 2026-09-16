@@ -75,9 +75,9 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnManageProducts.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnManageProducts.setForeground(new java.awt.Color(255, 255, 255));
         jBtnManageProducts.setText("Manage Products");
-        jBtnManageProducts.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtnManageProductsMouseClicked(evt);
+        jBtnManageProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnManageProductsActionPerformed(evt);
             }
         });
         jPanel1.add(jBtnManageProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, 280, 100));
@@ -157,15 +157,15 @@ public class MainDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnManageUsersMouseClicked
 
-    private void jBtnManageProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnManageProductsMouseClicked
-        ManageProducts mp = new ManageProducts();
-        mp.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jBtnManageProductsMouseClicked
-
     private void jLblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCloseMouseClicked
         this.dispose();
     }//GEN-LAST:event_jLblCloseMouseClicked
+
+    private void jBtnManageProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnManageProductsActionPerformed
+        ManageProducts mp = new ManageProducts(currentUser);
+        mp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnManageProductsActionPerformed
 
     /**
      * @param args the command line arguments

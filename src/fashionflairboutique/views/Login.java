@@ -149,7 +149,7 @@ public class Login extends javax.swing.JFrame {
                 if ("Store Manager".equalsIgnoreCase(loggedInUser.getRole())) {
                     new fashionflairboutique.views.MainDashboard(loggedInUser).setVisible(true);
                 } else {
-                    new fashionflairboutique.views.POS(loggedInUser).setVisible(true);
+                    new fashionflairboutique.views.MainDashboard(loggedInUser).setVisible(true);
                 }
 
                 // Clean single dispose call after launching target window

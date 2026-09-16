@@ -4,9 +4,12 @@
  */
 package fashionflairboutique.utils;
 
+import fashionflairboutique.models.User;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 import java.awt.Color;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author Chethiya
@@ -50,5 +53,28 @@ public class UIUtils {
 
     public static void showError(JLabel label, String message) {
         showTimedMessage(label, message, new Color(231, 76, 60)); // Red
+    }
+    
+    public static Timer startLiveClock(JLabel lblDate, JLabel lblTime) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+        LocalDateTime now = LocalDateTime.now();
+        lblDate.setText(now.format(dateFormatter));
+        lblTime.setText(now.format(timeFormatter));
+
+        Timer timer = new Timer(1000, e -> {
+            LocalDateTime current = LocalDateTime.now();
+            lblDate.setText(current.format(dateFormatter));
+            lblTime.setText(current.format(timeFormatter));
+        });
+        timer.start();
+        return timer; // Return timer so caller frame can stop it on dispose
+    }
+
+    public static void displayUserDetails(JLabel lblUser, User user) {
+        if (user != null && lblUser != null) {
+            lblUser.setText(user.getFullName() + " (" + user.getRole() + ")");
+        }
     }
 }
