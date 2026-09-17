@@ -125,6 +125,11 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnSalesReports.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnSalesReports.setForeground(new java.awt.Color(255, 255, 255));
         jBtnSalesReports.setText("Sales Reports");
+        jBtnSalesReports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSalesReportsActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnSalesReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, 270, 100));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Fashion Flair Boutique Logo re.png"))); // NOI18N
@@ -188,6 +193,12 @@ public class MainDashboard extends javax.swing.JFrame {
         pos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnPOSActionPerformed
+
+    private void jBtnSalesReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalesReportsActionPerformed
+        SalesReportsFrame spf = new SalesReportsFrame(currentUser);
+        spf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnSalesReportsActionPerformed
 
     /**
      * @param args the command line arguments
