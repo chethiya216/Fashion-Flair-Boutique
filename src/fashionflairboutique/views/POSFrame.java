@@ -269,6 +269,7 @@ public class POSFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 252, 246));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 55)); // NOI18N
@@ -380,9 +381,9 @@ public class POSFrame extends javax.swing.JFrame {
         jLabel25.setText("Total :");
         jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 780, -1, -1));
 
-        jBtnCheckOut.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnCheckOut.setBackground(new java.awt.Color(0, 185, 129));
         jBtnCheckOut.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
-        jBtnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnCheckOut.setForeground(new java.awt.Color(255, 255, 0));
         jBtnCheckOut.setText("CheckOut");
         jBtnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,7 +392,7 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 810, 380, 140));
 
-        jBtnAdd.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnAdd.setBackground(new java.awt.Color(37, 99, 235));
         jBtnAdd.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnAdd.setForeground(new java.awt.Color(255, 255, 255));
         jBtnAdd.setText("Add");
@@ -402,7 +403,7 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 120, 50));
 
-        jBtnUpdate.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnUpdate.setBackground(new java.awt.Color(217, 119, 6));
         jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         jBtnUpdate.setText("Update");
@@ -413,7 +414,7 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 590, 120, 50));
 
-        jBtnRemove.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnRemove.setBackground(new java.awt.Color(75, 85, 99));
         jBtnRemove.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnRemove.setForeground(new java.awt.Color(255, 255, 255));
         jBtnRemove.setText("Remove");
@@ -424,7 +425,7 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 590, 110, 50));
 
-        jBtnClearTable.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnClearTable.setBackground(new java.awt.Color(255, 0, 120));
         jBtnClearTable.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnClearTable.setForeground(new java.awt.Color(255, 255, 255));
         jBtnClearTable.setText("Clear Table");
@@ -502,8 +503,40 @@ public class POSFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCheckOutActionPerformed
+
         if (jTableCart.getRowCount() == 0) {
             UIUtils.showError(jLblMessage, "Cart is empty!");
+            return;
+        }
+
+        if (jCBPaymentMethod.getSelectedItem() == null) {
+            UIUtils.showError(jLblMessage, "Please select a payment method!");
+            return;
+        }
+
+        double totalAmount;
+        try {
+            totalAmount = Double.parseDouble(jTFTotal.getText().trim());
+        } catch (NumberFormatException ex) {
+            UIUtils.showError(jLblMessage, "Total is not calculated yet!");
+            return;
+        }
+
+        double paidAmount;
+        try {
+            String paidText = jTFPaidAmount.getText().trim();
+            if (paidText.isEmpty()) {
+                UIUtils.showError(jLblMessage, "Please enter the amount paid!");
+                return;
+            }
+            paidAmount = Double.parseDouble(paidText);
+        } catch (NumberFormatException ex) {
+            UIUtils.showError(jLblMessage, "Enter a valid paid amount!");
+            return;
+        }
+
+        if (paidAmount < totalAmount) {
+            UIUtils.showError(jLblMessage, "Paid amount is less than the total!");
             return;
         }
 
