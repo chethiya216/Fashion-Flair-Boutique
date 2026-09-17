@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class POSDAO {
     
     
-    public boolean processSale(int userId, String paymentMethod, DefaultTableModel cartModel) {
+    public boolean processSale(int userId, String paymentMethod, DefaultTableModel cartModel, double customerDiscountAmount) {
         String insertSaleSQL = "INSERT INTO Sales (invoice_number, user_id, subtotal, total_discount, net_total) " +
                                 "VALUES (?, ?, ?, ?, ?)";
         String insertItemSQL = "INSERT INTO Sale_Items (sale_id, product_id, quantity, unit_price, discount_applied, line_total) " +
@@ -37,20 +37,19 @@ public class POSDAO {
 
             // 1. Compute totals from the cart itself (never trust a client-supplied total)
             double subtotal = 0.0;
-            double totalDiscount = 0.0;
-
+            double itemDiscountTotal = 0.0;
             int rowCount = cartModel.getRowCount();
+
             for (int i = 0; i < rowCount; i++) {
                 int qty = Integer.parseInt(cartModel.getValueAt(i, 3).toString());
                 double unitPrice = Double.parseDouble(cartModel.getValueAt(i, 4).toString());
-                double lineTotal = Double.parseDouble(cartModel.getValueAt(i, 5).toString());
+                double lineDiscountTotal = Double.parseDouble(cartModel.getValueAt(i, 5).toString());
 
-                double lineSubtotal = unitPrice * qty;
-                double lineDiscount = lineSubtotal - lineTotal; // total discount for this line
-
-                subtotal += lineSubtotal;
-                totalDiscount += lineDiscount;
+                subtotal += unitPrice * qty;
+                itemDiscountTotal += lineDiscountTotal;
             }
+
+            double totalDiscount = itemDiscountTotal + customerDiscountAmount; // item-level + whole-order discount
             double netTotal = subtotal - totalDiscount;
 
             // 2. Insert Sales header

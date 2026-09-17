@@ -26,6 +26,10 @@ public class POSFrame extends javax.swing.JFrame {
     private User currentUser;
     private Timer clockTimer;
     private POS currentScannedProduct = null;
+    private int selectedCartRow = -1;
+    private double cartSubtotal = 0.0;
+    private double customerDiscountAmount = 0.0;
+    private double grandTotal = 0.0;
     
     public POSFrame() {
         initComponents();
@@ -50,6 +54,11 @@ public class POSFrame extends javax.swing.JFrame {
             }
         });
         
+        jTableCart.getSelectionModel().addListSelectionListener(evt -> {
+            if (!evt.getValueIsAdjusting() && jTableCart.getSelectedRow() != -1) {
+                populateFieldsFromCartRow();
+            }
+        });
         
     }
     
@@ -59,15 +68,42 @@ public class POSFrame extends javax.swing.JFrame {
         ));
     }
     
-    private void recalculateCartTotal() {
-        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
-        double total = 0.0;
-        for (int i = 0; i < model.getRowCount(); i++) {
-            total += Double.parseDouble(model.getValueAt(i, 6).toString()); // column 5 = lineTotal
+    private void applyCustomerDiscount() {
+        double discountPercentage;
+        try {
+            String text = jTFDiscount.getText().trim();
+            discountPercentage = text.isEmpty() ? 0.0 : Double.parseDouble(text);
+            if (discountPercentage < 0 || discountPercentage > 100) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Enter a valid discount percentage (0-100).",
+                "Input Error", JOptionPane.WARNING_MESSAGE);
+            jTFDiscount.setText("0");
+            discountPercentage = 0.0;
         }
-        jTFTotal.setText(String.format("%.2f", total));
+
+        customerDiscountAmount = cartSubtotal * (discountPercentage / 100.0);
+        grandTotal = cartSubtotal - customerDiscountAmount;
+
+        jTFTotal.setText(String.format("%.2f", grandTotal));
     }
     
+    private void recalculateCartTotal() {
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        double subtotal = 0.0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object value = model.getValueAt(i, 6); // lineTotal column
+            if (value != null) {
+                subtotal += Double.parseDouble(value.toString());
+            }
+        }
+        cartSubtotal = subtotal;
+        jTFSubTotal.setText(String.format("%.2f", cartSubtotal));
+
+        applyCustomerDiscount(); // keep the grand total in sync every time the cart changes
+    }
+      
     private void searchAndPopulateProduct() {
         String barcodeText = jTFBarcode.getText().trim();
 
@@ -101,9 +137,10 @@ public class POSFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
 
         double unitPrice = pos.getPrice();
-        double discount = pos.getDiscount();
-        double discountedUnitPrice = pos.getDiscountedPrice(); // already on POS - reuse it
-        double lineTotal = discountedUnitPrice * qty;
+        double discountPercentage = pos.getDiscount();
+        double discountPerUnit = unitPrice * (discountPercentage / 100.0);
+        double totalDiscount = discountPerUnit * qty;          // scales with quantity
+        double lineTotal = (unitPrice * qty) - totalDiscount;  // equivalent to discountedUnitPrice * qty
 
         model.addRow(new Object[]{
             pos.getProductId(),
@@ -111,16 +148,65 @@ public class POSFrame extends javax.swing.JFrame {
             pos.getProductName(),
             qty,
             unitPrice,
-            discount,
+            totalDiscount,   // was just discountPercentage - now the actual currency amount for the whole line
             lineTotal
         });
     }
+    
+    private void populateFieldsFromCartRow() {
+        selectedCartRow = jTableCart.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+
+        String barcode = model.getValueAt(selectedCartRow, 1).toString();
+        String productName = model.getValueAt(selectedCartRow, 2).toString();
+        int qty = Integer.parseInt(model.getValueAt(selectedCartRow, 3).toString());
+
+        // Re-fetch the product so we know current stock (the cart row itself
+        // doesn't store availableQty - only productId/barcode/name/qty/price/total)
+        POSDAO posDAO = new POSDAO();
+        POS pos = posDAO.getProductByBarcode(barcode);
+
+        if (pos != null) {
+            currentScannedProduct = pos;
+            jTFBarcode.setText(barcode);
+            jTFPName.setText(productName);
+            jTFPrice.setText(String.format("%.2f", pos.getPrice()));
+            jTFAvailableQty.setText(String.valueOf(pos.getAvailableQty()));
+            jTFQty.setText(String.valueOf(qty)); // pre-fill with the cart's current quantity
+        }
+    }
+    
+    private int findCartRowByProductId(int productId) {
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int rowProductId = Integer.parseInt(model.getValueAt(i, 0).toString());
+            if (rowProductId == productId) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     private void clearProductFields() {
+        jTFBarcode.setText("");
         jTFPName.setText("");
         jTFPrice.setText("");
         jTFAvailableQty.setText("");
         jTFQty.setText("");
+    }
+    
+    private void resetCartSelectionState() {
+        selectedCartRow = -1;
+        currentScannedProduct = null;
+        clearProductFields();
+        jTableCart.clearSelection();
+    }
+    
+    private void clearAll(){
+        clearProductFields();
+        resetCartSelectionState();
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        model.setRowCount(0);
     }
 
     /**
@@ -159,7 +245,7 @@ public class POSFrame extends javax.swing.JFrame {
         jBtnAdd = new javax.swing.JButton();
         jBtnUpdate = new javax.swing.JButton();
         jBtnRemove = new javax.swing.JButton();
-        jBtnClearAll1 = new javax.swing.JButton();
+        jBtnClearTable = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         jTFPaidAmount = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
@@ -168,6 +254,9 @@ public class POSFrame extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jTFDiscount = new javax.swing.JTextField();
         jCBPaymentMethod = new javax.swing.JComboBox<>();
+        jBtnClearAll = new javax.swing.JButton();
+        jTFSubTotal = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -276,11 +365,11 @@ public class POSFrame extends javax.swing.JFrame {
 
         jTFTotal.setEditable(false);
         jTFTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jPanel1.add(jTFTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 910, 300, -1));
+        jPanel1.add(jTFTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 800, 300, -1));
 
         jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel25.setText("Total :");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 880, -1, -1));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 770, -1, -1));
 
         jBtnCheckOut.setBackground(new java.awt.Color(0, 102, 255));
         jBtnCheckOut.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
@@ -291,7 +380,7 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnCheckOutActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 700, 330, 90));
+        jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 760, 330, 90));
 
         jBtnAdd.setBackground(new java.awt.Color(0, 102, 255));
         jBtnAdd.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
@@ -326,22 +415,27 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 110, 50));
 
-        jBtnClearAll1.setBackground(new java.awt.Color(0, 102, 255));
-        jBtnClearAll1.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
-        jBtnClearAll1.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnClearAll1.setText("Clear All");
-        jBtnClearAll1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnClearTable.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnClearTable.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnClearTable.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnClearTable.setText("Clear Table");
+        jBtnClearTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnClearAll1ActionPerformed(evt);
+                jBtnClearTableActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnClearAll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 330, 50));
+        jPanel1.add(jBtnClearTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 330, 50));
 
         jLabel26.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel26.setText("Paid :");
         jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 880, -1, -1));
 
         jTFPaidAmount.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jTFPaidAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFPaidAmountActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTFPaidAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 910, 300, -1));
 
         jLabel27.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
@@ -352,19 +446,43 @@ public class POSFrame extends javax.swing.JFrame {
         jTFChange.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jPanel1.add(jTFChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 910, 300, -1));
 
-        jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel28.setText("Payment Method :");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 780, -1, -1));
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 880, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel29.setText("Discount  Pct :");
         jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 780, -1, -1));
 
         jTFDiscount.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTFDiscount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFDiscountActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTFDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 810, 300, 40));
 
-        jCBPaymentMethod.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jCBPaymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 810, 300, 40));
+        jCBPaymentMethod.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jPanel1.add(jCBPaymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 910, 300, 40));
+
+        jBtnClearAll.setBackground(new java.awt.Color(0, 102, 255));
+        jBtnClearAll.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnClearAll.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnClearAll.setText("Clear All");
+        jBtnClearAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnClearAllActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnClearAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 700, 330, 50));
+
+        jTFSubTotal.setEditable(false);
+        jTFSubTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jPanel1.add(jTFSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 810, 300, -1));
+
+        jLabel30.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel30.setText("Sub Total :");
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 780, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,10 +513,16 @@ public class POSFrame extends javax.swing.JFrame {
         DefaultTableModel cartModel = (DefaultTableModel) jTableCart.getModel();
 
         POSDAO posDAO = new POSDAO();
-        if (posDAO.processSale(currentUser.getUserId(), paymentMethod, cartModel)) {
+        if (posDAO.processSale(currentUser.getUserId(), paymentMethod, cartModel, customerDiscountAmount)) {
             JOptionPane.showMessageDialog(this, "Sale completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
             cartModel.setRowCount(0);
             clearProductFields();
+            jTFDiscount.setText("0");
+            cartSubtotal = 0.0;
+            customerDiscountAmount = 0.0;
+            grandTotal = 0.0;
+            jTFSubTotal.setText("0.00");
+            jTFTotal.setText("0.00");
         } else {
             JOptionPane.showMessageDialog(this, "Checkout failed - transaction rolled back.",
                 "Error", JOptionPane.ERROR_MESSAGE);
@@ -406,6 +530,14 @@ public class POSFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnCheckOutActionPerformed
 
     private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
+        
+        if (selectedCartRow != -1) {
+            JOptionPane.showMessageDialog(this,
+                "A cart row is selected - click Update or Delete, or clear the selection before adding a new item.",
+                "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         if (currentScannedProduct == null) {
             JOptionPane.showMessageDialog(this, "Scan or search a product first.", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
@@ -420,16 +552,45 @@ public class POSFrame extends javax.swing.JFrame {
             return;
         }
 
-        if (qty > currentScannedProduct.getAvailableQty()) {
-            JOptionPane.showMessageDialog(this,
-                "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
-                "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
-            return;
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        int existingRow = findCartRowByProductId(currentScannedProduct.getProductId());
+
+        if (existingRow != -1) {
+            // Product already in cart - merge quantities instead of duplicating the row
+            int existingQty = Integer.parseInt(model.getValueAt(existingRow, 3).toString());
+            int combinedQty = existingQty + qty;
+
+            if (combinedQty > currentScannedProduct.getAvailableQty()) {
+                JOptionPane.showMessageDialog(this,
+                    "Not enough stock. Already have " + existingQty + " in cart, available: " +
+                    currentScannedProduct.getAvailableQty(),
+                    "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            double unitPrice = currentScannedProduct.getPrice();
+            double discountPercentage = currentScannedProduct.getDiscount();
+            double discountPerUnit = unitPrice * (discountPercentage / 100.0);
+            double totalDiscount = discountPerUnit * combinedQty;              // recalculated for combined qty
+            double newLineTotal = (unitPrice * combinedQty) - totalDiscount;
+
+            model.setValueAt(combinedQty, existingRow, 3);
+            model.setValueAt(unitPrice, existingRow, 4);
+            model.setValueAt(totalDiscount, existingRow, 5);
+            model.setValueAt(newLineTotal, existingRow, 6);
+
+        } else {
+            // New product for this cart
+            if (qty > currentScannedProduct.getAvailableQty()) {
+                JOptionPane.showMessageDialog(this,
+                    "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
+                    "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            addProductDetailsToTable(currentScannedProduct, qty);
         }
 
-        addProductDetailsToTable(currentScannedProduct, qty);   // ← your method, called here
         recalculateCartTotal();
-        
         currentScannedProduct = null;
         clearProductFields();
         jTFBarcode.setText("");
@@ -437,16 +598,101 @@ public class POSFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnAddActionPerformed
 
     private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
-        
+        if (selectedCartRow == -1) {
+            JOptionPane.showMessageDialog(this, "Select a cart row first.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (currentScannedProduct == null) {
+            JOptionPane.showMessageDialog(this, "Product data unavailable - reselect the row.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int newQty;
+        try {
+            newQty = Integer.parseInt(jTFQty.getText().trim());
+            if (newQty <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Enter a valid quantity.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (newQty > currentScannedProduct.getAvailableQty()) {
+            JOptionPane.showMessageDialog(this,
+                "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
+                "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        double unitPrice = currentScannedProduct.getPrice();
+        double discountPercentage = currentScannedProduct.getDiscount();
+        double discountPerUnit = unitPrice * (discountPercentage / 100.0);
+        double totalDiscount = discountPerUnit * newQty;
+        double newLineTotal = (unitPrice * newQty) - totalDiscount;
+
+        model.setValueAt(newQty, selectedCartRow, 3);
+        model.setValueAt(unitPrice, selectedCartRow, 4);
+        model.setValueAt(totalDiscount, selectedCartRow, 5);
+        model.setValueAt(newLineTotal, selectedCartRow, 6);
+
+        recalculateCartTotal();
+        resetCartSelectionState();
     }//GEN-LAST:event_jBtnUpdateActionPerformed
 
     private void jBtnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRemoveActionPerformed
-        // TODO add your handling code here:
+        if (selectedCartRow == -1) {
+            JOptionPane.showMessageDialog(this, "Select a cart row first.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        model.removeRow(selectedCartRow);
+
+        recalculateCartTotal();
+        resetCartSelectionState();
     }//GEN-LAST:event_jBtnRemoveActionPerformed
 
-    private void jBtnClearAll1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearAll1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnClearAll1ActionPerformed
+    private void jBtnClearTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTableActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_jBtnClearTableActionPerformed
+
+    private void jBtnClearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearAllActionPerformed
+        clearAll();
+    }//GEN-LAST:event_jBtnClearAllActionPerformed
+
+    private void jTFDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFDiscountActionPerformed
+        applyCustomerDiscount();
+        jTFPaidAmount.requestFocus();
+    }//GEN-LAST:event_jTFDiscountActionPerformed
+
+    private void jTFPaidAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFPaidAmountActionPerformed
+        try {
+            String totalText = jTFTotal.getText().trim();
+            String paidText = jTFPaidAmount.getText().trim();
+
+            if (paidText.isEmpty() || totalText.isEmpty()) {
+                jTFChange.setText("");
+                return;
+            }
+
+            double total = Double.parseDouble(totalText);
+            double paidAmt = Double.parseDouble(paidText);
+
+            if (paidAmt < total) {
+                JOptionPane.showMessageDialog(this, "Paid amount cannot be less than the total!", "Invalid Payment", JOptionPane.WARNING_MESSAGE);
+                jTFChange.setText("0.00");
+                return;
+            }
+
+            double change = paidAmt - total;
+            jTFChange.setText(String.format("%.2f", change));
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid numeric amount.", "Format Error", JOptionPane.ERROR_MESSAGE);
+            jTFChange.setText("");
+        }
+    }//GEN-LAST:event_jTFPaidAmountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,7 +735,8 @@ public class POSFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAdd;
     private javax.swing.JButton jBtnCheckOut;
-    private javax.swing.JButton jBtnClearAll1;
+    private javax.swing.JButton jBtnClearAll;
+    private javax.swing.JButton jBtnClearTable;
     private javax.swing.JButton jBtnRemove;
     private javax.swing.JButton jBtnUpdate;
     private javax.swing.JComboBox<String> jCBPaymentMethod;
@@ -507,6 +754,7 @@ public class POSFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLblMessage;
     private javax.swing.JLabel jLblShowDate;
     private javax.swing.JLabel jLblShowTime;
@@ -521,6 +769,7 @@ public class POSFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTFPaidAmount;
     private javax.swing.JTextField jTFPrice;
     private javax.swing.JTextField jTFQty;
+    private javax.swing.JTextField jTFSubTotal;
     private javax.swing.JTextField jTFTotal;
     private javax.swing.JTable jTableCart;
     // End of variables declaration//GEN-END:variables
