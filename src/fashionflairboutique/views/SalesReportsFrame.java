@@ -37,6 +37,7 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         UIUtils.displayUserDetails(jLblShowUser, currentUser);
         this.clockTimer = UIUtils.startLiveClock(jLblShowDate, jLblShowTime);
         loadTableData();
+        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
     }
     
     
@@ -160,6 +161,11 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jBtnExportExcel.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnExportExcel.setForeground(new java.awt.Color(255, 255, 255));
         jBtnExportExcel.setText("Excel Sheet");
+        jBtnExportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnExportExcelActionPerformed(evt);
+            }
+        });
 
         jBtnExportPDF.setBackground(new java.awt.Color(37, 99, 235));
         jBtnExportPDF.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
@@ -405,6 +411,35 @@ public class SalesReportsFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtnExportPDFActionPerformed
+
+    private void jBtnExportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExportExcelActionPerformed
+        if (jTable1.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No sales data available in the table to export!", "Export Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save Excel Sales Report");
+        fileChooser.setSelectedFile(new java.io.File("SalesReport.xlsx"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            java.io.File fileToSave = fileChooser.getSelectedFile();
+
+            // Ensure .xlsx extension
+            if (!fileToSave.getAbsolutePath().endsWith(".xlsx")) {
+                fileToSave = new java.io.File(fileToSave.getAbsolutePath() + ".xlsx");
+            }
+
+            try {
+                fashionflairboutique.utils.ReportExporterExcel.exportToExcel(jTable1, fileToSave);
+                JOptionPane.showMessageDialog(this, "Excel report exported successfully:\n" + fileToSave.getAbsolutePath(), "Export Complete", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error generating Excel file: " + e.getMessage(), "Export Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jBtnExportExcelActionPerformed
 
     /**
      * @param args the command line arguments
