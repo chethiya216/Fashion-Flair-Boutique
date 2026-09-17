@@ -108,6 +108,11 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnManageDiscounts.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnManageDiscounts.setForeground(new java.awt.Color(255, 255, 255));
         jBtnManageDiscounts.setText("Manage Discounts");
+        jBtnManageDiscounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnManageDiscountsActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnManageDiscounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 540, 290, 100));
 
         jBtnPOS.setBackground(new java.awt.Color(46, 204, 113));
@@ -199,6 +204,12 @@ public class MainDashboard extends javax.swing.JFrame {
         spf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnSalesReportsActionPerformed
+
+    private void jBtnManageDiscountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnManageDiscountsActionPerformed
+        DiscountsFrame df = new DiscountsFrame(currentUser);
+        df.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnManageDiscountsActionPerformed
 
     /**
      * @param args the command line arguments
