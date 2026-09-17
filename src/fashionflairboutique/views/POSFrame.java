@@ -207,6 +207,8 @@ public class POSFrame extends javax.swing.JFrame {
         jTableCart.clearSelection();
         jTFSubTotal.setText("");
         jTFTotal.setText("");
+        jTFPaidAmount.setText("");   // add
+        jTFChange.setText(""); 
     }
     
 //    private void clearAll(){
@@ -501,7 +503,6 @@ public class POSFrame extends javax.swing.JFrame {
 
     private void jBtnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCheckOutActionPerformed
         if (jTableCart.getRowCount() == 0) {
-//            JOptionPane.showMessageDialog(this, "Cart is empty.", "Warning", JOptionPane.WARNING_MESSAGE);
             UIUtils.showError(jLblMessage, "Cart is empty!");
             return;
         }
@@ -511,21 +512,14 @@ public class POSFrame extends javax.swing.JFrame {
 
         POSDAO posDAO = new POSDAO();
         if (posDAO.processSale(currentUser.getUserId(), paymentMethod, cartModel, customerDiscountAmount)) {
-//            JOptionPane.showMessageDialog(this, "Sale completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
             UIUtils.showSuccess(jLblMessage, "Sale completed!");
             cartModel.setRowCount(0);
-            clearProductFields();
-            jTFDiscount.setText("0");
-            cartSubtotal = 0.0;
-            customerDiscountAmount = 0.0;
-            grandTotal = 0.0;
-            jTFSubTotal.setText("0.00");
-            jTFTotal.setText("0.00");
         } else {
-//            JOptionPane.showMessageDialog(this, "Checkout failed - transaction rolled back.",
-//                "Error", JOptionPane.ERROR_MESSAGE);
             UIUtils.showError(jLblMessage, "Checkout failed - transaction rolled back!");
         }
+
+        resetCartSelectionState();
+        
     }//GEN-LAST:event_jBtnCheckOutActionPerformed
 
     private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
