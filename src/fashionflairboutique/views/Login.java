@@ -7,7 +7,7 @@ package fashionflairboutique.views;
 import fashionflairboutique.data.UserDAO;
 import fashionflairboutique.models.User;
 import fashionflairboutique.views.ManageProducts;
-import fashionflairboutique.views.POS;
+import fashionflairboutique.views.POSFrame;
 import javax.swing.JOptionPane;
 import fashionflairboutique.views.PasswordReset;
 

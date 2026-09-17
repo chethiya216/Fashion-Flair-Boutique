@@ -114,6 +114,11 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnPOS.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnPOS.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPOS.setText("POS");
+        jBtnPOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPOSActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnPOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 260, 100));
 
         jBtnSalesReports.setBackground(new java.awt.Color(52, 73, 94));
@@ -177,6 +182,12 @@ public class MainDashboard extends javax.swing.JFrame {
         pv.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnProductCatalogActionPerformed
+
+    private void jBtnPOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPOSActionPerformed
+        POSFrame pos = new POSFrame(currentUser);
+        pos.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnPOSActionPerformed
 
     /**
      * @param args the command line arguments
