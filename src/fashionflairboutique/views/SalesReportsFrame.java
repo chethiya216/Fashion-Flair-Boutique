@@ -71,7 +71,23 @@ public class SalesReportsFrame extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        
+        updateSummaryLabels();
     
+    }
+    
+    private void updateSummaryLabels() {
+        // Fetch metrics directly from database via DAO
+        double totalRevenue = SalesReportDAO.getTotalRevenue();
+        int totalTransactions = SalesReportDAO.getTotalTransactions();
+        double avgOrderValue = SalesReportDAO.getAverageOrderValue();
+        int totalItemsSold = SalesReportDAO.getTotalItemsSold();
+
+        // Set text to the UI JLabels
+        jLblTotalRevenue.setText(String.format("LKR %.2f", totalRevenue));
+        jLblTotalTransactions.setText(String.valueOf(totalTransactions));
+        jLblAverageOrderValue.setText(String.format("LKR %.2f", avgOrderValue));
+        jLblTotalItemsSold.setText(String.valueOf(totalItemsSold));
     }
 
     /**
@@ -108,6 +124,10 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLblShowUser = new javax.swing.JLabel();
         jLblShowDate = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -234,7 +254,7 @@ public class SalesReportsFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 1010, 270));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 1010, 270));
 
         jTable1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -265,23 +285,23 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 560, 1370, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 630, 1370, -1));
 
-        jLblTotalItemsSold.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLblTotalItemsSold.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblTotalItemsSold.setText("jLabel1");
-        jPanel1.add(jLblTotalItemsSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 120, 170, 120));
+        jPanel1.add(jLblTotalItemsSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 150, 300, 80));
 
-        jLblTotalRevenue.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLblTotalRevenue.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblTotalRevenue.setText("jLabel1");
-        jPanel1.add(jLblTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 170, 120));
+        jPanel1.add(jLblTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 360, 70));
 
-        jLblTotalTransactions.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLblTotalTransactions.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblTotalTransactions.setText("jLabel1");
-        jPanel1.add(jLblTotalTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 170, 120));
+        jPanel1.add(jLblTotalTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 280, 70));
 
-        jLblAverageOrderValue.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLblAverageOrderValue.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblAverageOrderValue.setText("jLabel1");
-        jPanel1.add(jLblAverageOrderValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 120, 170, 120));
+        jPanel1.add(jLblAverageOrderValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 240, 320, 70));
 
         jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
@@ -307,6 +327,22 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jLblShowDate.setText("User :");
         jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 290, -1));
 
+        jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel25.setText("Total Revenue :");
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel26.setText("Total Items Sold :");
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 180, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel27.setText("Average Order Value :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 270, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel28.setText("Total  Transactions :");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -317,7 +353,7 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE)
         );
 
         pack();
@@ -491,6 +527,10 @@ public class SalesReportsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLblAverageOrderValue;
     private javax.swing.JLabel jLblShowDate;
     private javax.swing.JLabel jLblShowTime;

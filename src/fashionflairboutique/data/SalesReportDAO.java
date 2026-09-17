@@ -70,6 +70,66 @@ public class SalesReportDAO {
 
         return salesList;
     }
+    
+    public static double getTotalRevenue() {
+        double total = 0.0;
+        String sql = "SELECT SUM(net_total) FROM sales";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                total = rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+
+    public static int getTotalTransactions() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM sales";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public static double getAverageOrderValue() {
+        double avg = 0.0;
+        String sql = "SELECT AVG(net_total) FROM sales";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                avg = rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return avg;
+    }
+
+    public static int getTotalItemsSold() {
+        int count = 0;
+        String sql = "SELECT SUM(quantity) FROM sale_items";
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }
 
 
