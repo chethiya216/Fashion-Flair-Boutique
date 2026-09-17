@@ -10,6 +10,7 @@ import fashionflairboutique.models.User;
 import fashionflairboutique.utils.UIUtils;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -130,6 +131,11 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jBtnResetSearch.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnResetSearch.setForeground(new java.awt.Color(255, 255, 255));
         jBtnResetSearch.setText("Reset");
+        jBtnResetSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnResetSearchActionPerformed(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel22.setText("Search Report :");
@@ -159,6 +165,11 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jBtnExportPDF.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
         jBtnExportPDF.setForeground(new java.awt.Color(255, 255, 255));
         jBtnExportPDF.setText("PDF");
+        jBtnExportPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnExportPDFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -354,6 +365,46 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jBtnSearchActionPerformed
+
+    private void jBtnResetSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnResetSearchActionPerformed
+        // Clear reference no
+        jTFReferenceNo.setText("");
+    
+        // Clear the date picker selection
+        jDateChooser.setDate(null);
+
+        // Reload the full table data
+        loadTableData();
+    }//GEN-LAST:event_jBtnResetSearchActionPerformed
+
+    private void jBtnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExportPDFActionPerformed
+        if (jTable1.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No sales data available in the table to export!", "Export Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save PDF Sales Report");
+        fileChooser.setSelectedFile(new java.io.File("SalesReport.pdf"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            java.io.File fileToSave = fileChooser.getSelectedFile();
+
+            // Ensure .pdf extension
+            if (!fileToSave.getAbsolutePath().endsWith(".pdf")) {
+                fileToSave = new java.io.File(fileToSave.getAbsolutePath() + ".pdf");
+            }
+
+            try {
+                fashionflairboutique.utils.ReportExporterPDF.exportToPDF(jTable1, fileToSave);
+                JOptionPane.showMessageDialog(this, "PDF report exported successfully:\n" + fileToSave.getAbsolutePath(), "Export Complete", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error generating PDF: " + e.getMessage(), "Export Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jBtnExportPDFActionPerformed
 
     /**
      * @param args the command line arguments
