@@ -77,8 +77,9 @@ public class POSFrame extends javax.swing.JFrame {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Enter a valid discount percentage (0-100).",
-                "Input Error", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Enter a valid discount percentage (0-100).",
+//                "Input Error", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Enter a valid discount percentage (0-100)!");
             jTFDiscount.setText("0");
             discountPercentage = 0.0;
         }
@@ -108,7 +109,8 @@ public class POSFrame extends javax.swing.JFrame {
         String barcodeText = jTFBarcode.getText().trim();
 
         if (barcodeText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a barcode.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Please enter a barcode.", "Warning", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Please enter a barcode!");
             return;
         }
 
@@ -127,7 +129,8 @@ public class POSFrame extends javax.swing.JFrame {
             jTFQty.requestFocus();
         } else {
             currentScannedProduct = null;
-            JOptionPane.showMessageDialog(this, "Product not found!", "Search Error", JOptionPane.ERROR_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Product not found!", "Search Error", JOptionPane.ERROR_MESSAGE);
+            UIUtils.showError(jLblMessage, "Product not found!");
             clearProductFields();
             jTFBarcode.requestFocus();
         }
@@ -193,6 +196,8 @@ public class POSFrame extends javax.swing.JFrame {
         jTFPrice.setText("");
         jTFAvailableQty.setText("");
         jTFQty.setText("");
+        
+        
     }
     
     private void resetCartSelectionState() {
@@ -200,14 +205,17 @@ public class POSFrame extends javax.swing.JFrame {
         currentScannedProduct = null;
         clearProductFields();
         jTableCart.clearSelection();
+        jTFSubTotal.setText("");
+        jTFTotal.setText("");
     }
     
-    private void clearAll(){
-        clearProductFields();
-        resetCartSelectionState();
-        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
-        model.setRowCount(0);
-    }
+//    private void clearAll(){
+//        clearProductFields();
+//        resetCartSelectionState();
+//        DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
+//        model.setRowCount(0);
+//        
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -254,7 +262,6 @@ public class POSFrame extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jTFDiscount = new javax.swing.JTextField();
         jCBPaymentMethod = new javax.swing.JComboBox<>();
-        jBtnClearAll = new javax.swing.JButton();
         jTFSubTotal = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
 
@@ -262,10 +269,10 @@ public class POSFrame extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 55)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));
         jLabel2.setText("POS");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 60, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, 130, -1));
 
         jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
@@ -291,7 +298,7 @@ public class POSFrame extends javax.swing.JFrame {
         jLblShowDate.setText("User :");
         jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 290, -1));
 
-        jTableCart.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jTableCart.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTableCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -320,10 +327,10 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableCart);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 1020, 530));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 1090, 530));
 
         jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 540, 40));
+        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 720, 40));
 
         jLabel20.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel20.setText("Barcode");
@@ -365,14 +372,14 @@ public class POSFrame extends javax.swing.JFrame {
 
         jTFTotal.setEditable(false);
         jTFTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jPanel1.add(jTFTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 800, 300, -1));
+        jPanel1.add(jTFTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 810, 300, -1));
 
         jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel25.setText("Total :");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 770, -1, -1));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 780, -1, -1));
 
         jBtnCheckOut.setBackground(new java.awt.Color(0, 102, 255));
-        jBtnCheckOut.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
+        jBtnCheckOut.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
         jBtnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
         jBtnCheckOut.setText("CheckOut");
         jBtnCheckOut.addActionListener(new java.awt.event.ActionListener() {
@@ -380,7 +387,7 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnCheckOutActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 760, 330, 90));
+        jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 810, 380, 140));
 
         jBtnAdd.setBackground(new java.awt.Color(0, 102, 255));
         jBtnAdd.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
@@ -391,7 +398,7 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnAddActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 570, 120, 50));
+        jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 120, 50));
 
         jBtnUpdate.setBackground(new java.awt.Color(0, 102, 255));
         jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
@@ -402,7 +409,7 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 570, 120, 50));
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 590, 120, 50));
 
         jBtnRemove.setBackground(new java.awt.Color(0, 102, 255));
         jBtnRemove.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
@@ -413,7 +420,7 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 110, 50));
+        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 590, 110, 50));
 
         jBtnClearTable.setBackground(new java.awt.Color(0, 102, 255));
         jBtnClearTable.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
@@ -424,11 +431,11 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnClearTableActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnClearTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 330, 50));
+        jPanel1.add(jBtnClearTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 660, 330, 70));
 
         jLabel26.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel26.setText("Paid :");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 880, -1, -1));
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 880, -1, -1));
 
         jTFPaidAmount.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jTFPaidAmount.addActionListener(new java.awt.event.ActionListener() {
@@ -436,23 +443,23 @@ public class POSFrame extends javax.swing.JFrame {
                 jTFPaidAmountActionPerformed(evt);
             }
         });
-        jPanel1.add(jTFPaidAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 910, 300, -1));
+        jPanel1.add(jTFPaidAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 910, 300, -1));
 
         jLabel27.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel27.setText("Change :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 880, -1, -1));
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 880, -1, -1));
 
         jTFChange.setEditable(false);
         jTFChange.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jPanel1.add(jTFChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 910, 300, -1));
+        jPanel1.add(jTFChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 910, 300, -1));
 
         jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel28.setText("Payment Method :");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 880, -1, -1));
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 880, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel29.setText("Discount  Pct :");
-        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 780, -1, -1));
+        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 780, -1, -1));
 
         jTFDiscount.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTFDiscount.addActionListener(new java.awt.event.ActionListener() {
@@ -460,29 +467,18 @@ public class POSFrame extends javax.swing.JFrame {
                 jTFDiscountActionPerformed(evt);
             }
         });
-        jPanel1.add(jTFDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 810, 300, 40));
+        jPanel1.add(jTFDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 810, 300, 40));
 
         jCBPaymentMethod.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jPanel1.add(jCBPaymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 910, 300, 40));
-
-        jBtnClearAll.setBackground(new java.awt.Color(0, 102, 255));
-        jBtnClearAll.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
-        jBtnClearAll.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnClearAll.setText("Clear All");
-        jBtnClearAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnClearAllActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jBtnClearAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 700, 330, 50));
+        jPanel1.add(jCBPaymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 910, 300, 40));
 
         jTFSubTotal.setEditable(false);
         jTFSubTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jPanel1.add(jTFSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 810, 300, -1));
+        jPanel1.add(jTFSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 810, 300, -1));
 
         jLabel30.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel30.setText("Sub Total :");
-        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 780, -1, -1));
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 780, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -505,7 +501,8 @@ public class POSFrame extends javax.swing.JFrame {
 
     private void jBtnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCheckOutActionPerformed
         if (jTableCart.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Cart is empty.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Cart is empty.", "Warning", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Cart is empty!");
             return;
         }
 
@@ -514,7 +511,8 @@ public class POSFrame extends javax.swing.JFrame {
 
         POSDAO posDAO = new POSDAO();
         if (posDAO.processSale(currentUser.getUserId(), paymentMethod, cartModel, customerDiscountAmount)) {
-            JOptionPane.showMessageDialog(this, "Sale completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Sale completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            UIUtils.showSuccess(jLblMessage, "Sale completed!");
             cartModel.setRowCount(0);
             clearProductFields();
             jTFDiscount.setText("0");
@@ -524,22 +522,24 @@ public class POSFrame extends javax.swing.JFrame {
             jTFSubTotal.setText("0.00");
             jTFTotal.setText("0.00");
         } else {
-            JOptionPane.showMessageDialog(this, "Checkout failed - transaction rolled back.",
-                "Error", JOptionPane.ERROR_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Checkout failed - transaction rolled back.",
+//                "Error", JOptionPane.ERROR_MESSAGE);
+            UIUtils.showError(jLblMessage, "Checkout failed - transaction rolled back!");
         }
     }//GEN-LAST:event_jBtnCheckOutActionPerformed
 
     private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
         
-        if (selectedCartRow != -1) {
-            JOptionPane.showMessageDialog(this,
-                "A cart row is selected - click Update or Delete, or clear the selection before adding a new item.",
-                "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+//        if (selectedCartRow != -1) {
+//            JOptionPane.showMessageDialog(this,
+//                "A cart row is selected - click Update or Delete, or clear the selection before adding a new item.",
+//                "Warning", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
 
         if (currentScannedProduct == null) {
-            JOptionPane.showMessageDialog(this, "Scan or search a product first.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Scan or search a product first.", "Warning", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Scan or search a product first!");
             return;
         }
 
@@ -548,7 +548,8 @@ public class POSFrame extends javax.swing.JFrame {
             qty = Integer.parseInt(jTFQty.getText().trim());
             if (qty <= 0) throw new NumberFormatException();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Enter a valid quantity.", "Input Error", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Enter a valid quantity.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Enter a valid quantity!");
             return;
         }
 
@@ -561,10 +562,12 @@ public class POSFrame extends javax.swing.JFrame {
             int combinedQty = existingQty + qty;
 
             if (combinedQty > currentScannedProduct.getAvailableQty()) {
-                JOptionPane.showMessageDialog(this,
-                    "Not enough stock. Already have " + existingQty + " in cart, available: " +
-                    currentScannedProduct.getAvailableQty(),
-                    "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+//                JOptionPane.showMessageDialog(this,
+//                    "Not enough stock. Already have " + existingQty + " in cart, available: " +
+//                    currentScannedProduct.getAvailableQty(),
+//                    "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+                UIUtils.showError(jLblMessage, "Not enough stock. Already have " + existingQty + " in cart, available: " +
+                    currentScannedProduct.getAvailableQty() + " - Insufficient Stock");
                 return;
             }
 
@@ -582,28 +585,35 @@ public class POSFrame extends javax.swing.JFrame {
         } else {
             // New product for this cart
             if (qty > currentScannedProduct.getAvailableQty()) {
-                JOptionPane.showMessageDialog(this,
-                    "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
-                    "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+//                JOptionPane.showMessageDialog(this,
+//                    "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
+//                    "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+                UIUtils.showError(jLblMessage, "Not enough stock. Available: " + currentScannedProduct.getAvailableQty() +
+                    " - Insufficient Stock");
                 return;
             }
             addProductDetailsToTable(currentScannedProduct, qty);
         }
-
+        
         recalculateCartTotal();
         currentScannedProduct = null;
         clearProductFields();
         jTFBarcode.setText("");
         jTFBarcode.requestFocus();
+        
+        selectedCartRow = -1;
+        jTableCart.clearSelection();
     }//GEN-LAST:event_jBtnAddActionPerformed
 
     private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
         if (selectedCartRow == -1) {
-            JOptionPane.showMessageDialog(this, "Select a cart row first.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Select a cart row first.", "Warning", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Select a cart row first!");
             return;
         }
         if (currentScannedProduct == null) {
-            JOptionPane.showMessageDialog(this, "Product data unavailable - reselect the row.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Product data unavailable - reselect the row.", "Warning", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Product data unavailable - reselect the row!");
             return;
         }
 
@@ -612,14 +622,17 @@ public class POSFrame extends javax.swing.JFrame {
             newQty = Integer.parseInt(jTFQty.getText().trim());
             if (newQty <= 0) throw new NumberFormatException();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Enter a valid quantity.", "Input Error", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Enter a valid quantity.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Enter a valid quantity!");
             return;
         }
 
         if (newQty > currentScannedProduct.getAvailableQty()) {
-            JOptionPane.showMessageDialog(this,
-                "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
-                "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this,
+//                "Not enough stock. Available: " + currentScannedProduct.getAvailableQty(),
+//                "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Not enough stock. Available: " + currentScannedProduct.getAvailableQty() +
+                " - Insufficient Stock");
             return;
         }
 
@@ -641,7 +654,8 @@ public class POSFrame extends javax.swing.JFrame {
 
     private void jBtnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRemoveActionPerformed
         if (selectedCartRow == -1) {
-            JOptionPane.showMessageDialog(this, "Select a cart row first.", "Warning", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Select a cart row first.", "Warning", JOptionPane.WARNING_MESSAGE);
+            UIUtils.showError(jLblMessage, "Select a cart row first!");
             return;
         }
 
@@ -655,11 +669,8 @@ public class POSFrame extends javax.swing.JFrame {
     private void jBtnClearTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearTableActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableCart.getModel();
         model.setRowCount(0);
+        resetCartSelectionState();
     }//GEN-LAST:event_jBtnClearTableActionPerformed
-
-    private void jBtnClearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearAllActionPerformed
-        clearAll();
-    }//GEN-LAST:event_jBtnClearAllActionPerformed
 
     private void jTFDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFDiscountActionPerformed
         applyCustomerDiscount();
@@ -680,7 +691,8 @@ public class POSFrame extends javax.swing.JFrame {
             double paidAmt = Double.parseDouble(paidText);
 
             if (paidAmt < total) {
-                JOptionPane.showMessageDialog(this, "Paid amount cannot be less than the total!", "Invalid Payment", JOptionPane.WARNING_MESSAGE);
+//                JOptionPane.showMessageDialog(this, "Paid amount cannot be less than the total!", "Invalid Payment", JOptionPane.WARNING_MESSAGE);
+                UIUtils.showError(jLblMessage, "Paid amount cannot be less than the total!  Invalid Payment!");
                 jTFChange.setText("0.00");
                 return;
             }
@@ -689,7 +701,8 @@ public class POSFrame extends javax.swing.JFrame {
             jTFChange.setText(String.format("%.2f", change));
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid numeric amount.", "Format Error", JOptionPane.ERROR_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Please enter a valid numeric amount.", "Format Error", JOptionPane.ERROR_MESSAGE);
+            UIUtils.showError(jLblMessage, "Please enter a valid numeric amount!");
             jTFChange.setText("");
         }
     }//GEN-LAST:event_jTFPaidAmountActionPerformed
@@ -735,7 +748,6 @@ public class POSFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAdd;
     private javax.swing.JButton jBtnCheckOut;
-    private javax.swing.JButton jBtnClearAll;
     private javax.swing.JButton jBtnClearTable;
     private javax.swing.JButton jBtnRemove;
     private javax.swing.JButton jBtnUpdate;
