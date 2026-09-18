@@ -209,12 +209,12 @@
         <Component class="javax.swing.JLabel" name="jLblUname">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Aarvark Cafe" size="18" style="1"/>
+              <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="330" y="340" width="450" height="30"/>
+              <AbsoluteConstraints x="360" y="370" width="450" height="30"/>
             </Constraint>
           </Constraints>
         </Component>

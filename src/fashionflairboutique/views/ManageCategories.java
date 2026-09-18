@@ -147,31 +147,31 @@ public class ManageCategories extends javax.swing.JFrame {
         jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
         jPanel1.add(jPanelsidebarPanelContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 730));
 
-        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel19.setText("User :");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
-        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowUser.setText("User :");
-        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 290, -1));
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 290, -1));
 
-        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel17.setText("Date  :");
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel17.setText("Date :");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, -1, -1));
 
-        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowDate.setText("User :");
-        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 290, -1));
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 290, -1));
 
-        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Time :");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, -1, -1));
 
-        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
-        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 220, -1));
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 220, -1));
 
-        jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 150, 860, 40));
 
         jLabel3.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
@@ -179,45 +179,48 @@ public class ManageCategories extends javax.swing.JFrame {
         jLabel3.setText("Manage Categories");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 50, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Status :");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, -1, -1));
 
         jTFCName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFCName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 300, -1));
 
-        jBtnAdd.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnAdd.setBackground(new java.awt.Color(46, 204, 113));
+        jBtnAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnAdd.setText("Add");
         jBtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAddActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 550, -1, -1));
+        jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 550, 90, 40));
 
-        jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnUpdate.setBackground(new java.awt.Color(52, 152, 219));
+        jBtnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnUpdate.setText("Update");
         jBtnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, -1, -1));
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, -1, 40));
 
-        jBtnClear.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnClear.setBackground(new java.awt.Color(127, 140, 141));
+        jBtnClear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnClear.setText("Clear");
         jBtnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnClearActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 550, -1, -1));
+        jPanel1.add(jBtnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 550, 90, 40));
 
-        jLabel11.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setText("Category Name :");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Desciption :");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, -1));
 
