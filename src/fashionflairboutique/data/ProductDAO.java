@@ -4,9 +4,6 @@
  */
 package fashionflairboutique.data;
 
-
-import fashionflairboutique.models.Product;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +18,7 @@ import fashionflairboutique.data.DatabaseConnector;
  * @author Chethiya
  */
 public class ProductDAO {
-    // 1. Fetch Categories for Dropdown
+     // 1. Fetch Categories for Dropdown
     public List<Category> getAllCategories() throws SQLException {
         List<Category> list = new ArrayList<>();
         String sql = "SELECT category_id, category_name, description, status FROM categories " +
@@ -106,7 +103,10 @@ public class ProductDAO {
         }
     }
 
-    // 5. Combined Search (By Category, Target Group, or Keyword)
+    // 5. Combined Search (By Category, Target Group, or Keyword) - used by ManageProducts.
+    // Reads the PLAIN stored discount_percentage - this screen edits that value
+    // directly, so it must always show/save the real default, never a promo-
+    // inflated figure. Do not apply the effective-discount fix here.
     public List<Product> searchProducts(int categoryId, String targetGroup, String keyword) throws SQLException {
         List<Product> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
@@ -151,7 +151,41 @@ public class ProductDAO {
         return list;
     }
 
-    // Helper: Map ResultSet to Product Model
+    // 6. NEW: Search by category name for the SearchProducts (browse-only) screen.
+    // Reads effective_discount - promo-aware, since this screen is for browsing
+    // what a customer would actually pay right now, not editing the stored default.
+    public List<Product> getProductsByCategory(String category) throws SQLException {
+        List<Product> productList = new ArrayList<>();
+        String sql =
+            "SELECT p.*, c.category_name, " +
+            "  COALESCE(" +
+            "    (SELECT MAX(pr.discount_percentage) " +
+            "     FROM Promotion_Products pp " +
+            "     JOIN Promotions pr ON pp.promotion_id = pr.promotion_id " +
+            "     WHERE pp.product_id = p.product_id " +
+            "       AND pr.status = 'Active' " +
+            "       AND CURDATE() BETWEEN pr.start_date AND pr.end_date), " +
+            "    p.discount_percentage" +
+            "  ) AS effective_discount " +
+            "FROM products p " +
+            "JOIN categories c ON p.category_id = c.category_id " +
+            "WHERE c.category_name = ? " +
+            "ORDER BY p.product_name ASC";
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, category);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    productList.add(mapResultSetToProductForBrowsing(rs));
+                }
+            }
+        }
+        return productList;
+    }
+
+    // Helper: Map ResultSet to Product Model - used by searchProducts() (ManageProducts).
+    // Reads the plain stored discount_percentage.
     private Product mapResultSetToProduct(ResultSet rs) throws SQLException {
         Product p = new Product();
         p.setProductId(rs.getInt("product_id"));
@@ -166,6 +200,27 @@ public class ProductDAO {
         p.setBuyingPrice(rs.getBigDecimal("buying_price"));
         p.setSellingPrice(rs.getBigDecimal("selling_price"));
         p.setDiscountPercentage(rs.getBigDecimal("discount_percentage"));
+        p.setStockQuantity(rs.getInt("stock_quantity"));
+        p.setStatus(rs.getString("status"));
+        return p;
+    }
+
+    // Helper: Map ResultSet to Product Model - used by getProductsByCategory() (SearchProducts).
+    // Reads effective_discount (promo-aware). Do NOT reuse this for ManageProducts.
+    private Product mapResultSetToProductForBrowsing(ResultSet rs) throws SQLException {
+        Product p = new Product();
+        p.setProductId(rs.getInt("product_id"));
+        p.setBarcode(rs.getString("barcode"));
+        p.setProductName(rs.getString("product_name"));
+        p.setBrand(rs.getString("brand"));
+        p.setCategoryId(rs.getInt("category_id"));
+        p.setCategoryName(rs.getString("category_name"));
+        p.setTargetGroup(rs.getString("target_group"));
+        p.setSize(rs.getString("size"));
+        p.setColor(rs.getString("color"));
+        p.setBuyingPrice(rs.getBigDecimal("buying_price"));
+        p.setSellingPrice(rs.getBigDecimal("selling_price"));
+        p.setDiscountPercentage(rs.getBigDecimal("effective_discount"));
         p.setStockQuantity(rs.getInt("stock_quantity"));
         p.setStatus(rs.getString("status"));
         return p;
