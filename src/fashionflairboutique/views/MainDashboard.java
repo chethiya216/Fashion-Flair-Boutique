@@ -63,6 +63,7 @@ public class MainDashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLblUname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jBtnManageCategories = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,70 +74,76 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnManageProducts.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnManageProducts.setForeground(new java.awt.Color(255, 255, 255));
         jBtnManageProducts.setText("Manage Products");
+        jBtnManageProducts.setMinimumSize(new java.awt.Dimension(281, 54));
         jBtnManageProducts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnManageProductsActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnManageProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, 280, 100));
+        jPanel1.add(jBtnManageProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 310, 100));
 
         jBtnManageUsers.setBackground(new java.awt.Color(142, 68, 173));
         jBtnManageUsers.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnManageUsers.setForeground(new java.awt.Color(255, 255, 255));
         jBtnManageUsers.setText("Manage Users");
+        jBtnManageUsers.setMinimumSize(new java.awt.Dimension(281, 54));
         jBtnManageUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnManageUsersActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnManageUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 260, 100));
+        jPanel1.add(jBtnManageUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 310, 100));
 
         jBtnProductCatalog.setBackground(new java.awt.Color(52, 152, 219));
         jBtnProductCatalog.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnProductCatalog.setForeground(new java.awt.Color(255, 255, 255));
         jBtnProductCatalog.setText("Product Catalog");
+        jBtnProductCatalog.setMinimumSize(new java.awt.Dimension(281, 54));
         jBtnProductCatalog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnProductCatalogActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnProductCatalog, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 420, 280, 100));
+        jPanel1.add(jBtnProductCatalog, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 310, 100));
 
         jBtnManageDiscounts.setBackground(new java.awt.Color(230, 126, 34));
         jBtnManageDiscounts.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnManageDiscounts.setForeground(new java.awt.Color(255, 255, 255));
         jBtnManageDiscounts.setText("Manage Discounts");
+        jBtnManageDiscounts.setMinimumSize(new java.awt.Dimension(281, 54));
         jBtnManageDiscounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnManageDiscountsActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnManageDiscounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 540, 290, 100));
+        jPanel1.add(jBtnManageDiscounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 550, 310, 100));
 
         jBtnPOS.setBackground(new java.awt.Color(46, 204, 113));
         jBtnPOS.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnPOS.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPOS.setText("POS");
+        jBtnPOS.setMinimumSize(new java.awt.Dimension(281, 54));
         jBtnPOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnPOSActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnPOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 260, 100));
+        jPanel1.add(jBtnPOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 550, 310, 100));
 
         jBtnSalesReports.setBackground(new java.awt.Color(52, 73, 94));
         jBtnSalesReports.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnSalesReports.setForeground(new java.awt.Color(255, 255, 255));
         jBtnSalesReports.setText("Sales Reports");
+        jBtnSalesReports.setMinimumSize(new java.awt.Dimension(281, 54));
         jBtnSalesReports.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSalesReportsActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnSalesReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, 270, 100));
+        jPanel1.add(jBtnSalesReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, 310, 100));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Fashion Flair Boutique Logo re.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, -1, -1));
 
         jLblUname.setFont(new java.awt.Font("Aarvark Cafe", 1, 18)); // NOI18N
         jPanel1.add(jLblUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 450, 30));
@@ -144,7 +151,18 @@ public class MainDashboard extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));
         jLabel2.setText("Main Dashboard");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, -1, 80));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, -1, 80));
+
+        jBtnManageCategories.setBackground(new java.awt.Color(0, 180, 218));
+        jBtnManageCategories.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
+        jBtnManageCategories.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnManageCategories.setText("Manage Categories");
+        jBtnManageCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnManageCategoriesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnManageCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, 310, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,7 +172,7 @@ public class MainDashboard extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
         );
 
         pack();
@@ -197,6 +215,12 @@ public class MainDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnManageUsersActionPerformed
 
+    private void jBtnManageCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnManageCategoriesActionPerformed
+        ManageCategories mc = new ManageCategories(currentUser);
+        mc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnManageCategoriesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -234,6 +258,7 @@ public class MainDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnManageCategories;
     private javax.swing.JButton jBtnManageDiscounts;
     private javax.swing.JButton jBtnManageProducts;
     private javax.swing.JButton jBtnManageUsers;
