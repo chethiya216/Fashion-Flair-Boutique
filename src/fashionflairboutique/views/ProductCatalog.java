@@ -44,7 +44,8 @@ public class ProductCatalog extends javax.swing.JFrame {
         this.clockTimer = UIUtils.startLiveClock(jLblShowDate, jLblShowTime);
         attachSearchListeners();
         filterCatalog(); // Load all products initially
-        initForm(); // Loads categories AND calls filterCatalog()
+        loadCategoriesToComboBox(); // Loads categories AND calls filterCatalog()
+
         
         if (this.currentUser != null) {
             // 1. Set BorderLayout on your newly created side panel
@@ -62,10 +63,6 @@ public class ProductCatalog extends javax.swing.JFrame {
         }
     }
     
-    public void initForm(){
-        loadCategoriesToComboBox();
-        filterCatalog();
-    }
     
     private void loadCategoriesToComboBox() {
         try {
@@ -125,21 +122,21 @@ public class ProductCatalog extends javax.swing.JFrame {
         model.setRowCount(0); // Clear existing rows
 
         for (PCatalog pc : list) {
-        model.addRow(new Object[]{
-            pc.getProductId(),            // Col 0: Integer (ProductID)
-            pc.getBarcode(),              // Col 1: String  (Barcode)
-            pc.getProductName(),          // Col 2: String  (Product Name)
-            pc.getBrand(),                // Col 3: String  (Brand)
-            pc.getCategoryName(),         // Col 4: String  (Category)
-            pc.getTargetGroup(),          // Col 5: String  (Target Group) - or "" if null
-            pc.getSize(),                 // Col 6: String  (Size) - or "" if null
-            pc.getColor(),                // Col 7: String  (Color) - or "" if null
-            pc.getSellingPrice(),         // Col 8: Double  (Price)
-            pc.getDiscountedPrice(),      // Col 9: Double  (Discounted Price)
-            pc.getStockQuantity(),        // Col 10: Integer (Qty)
-            pc.getStatus()                // Col 11: String  (Status)
-        });
-    }
+            model.addRow(new Object[]{
+                pc.getProductId(),            // Col 0: Integer (ProductID)
+                pc.getBarcode(),              // Col 1: String  (Barcode)
+                pc.getProductName(),          // Col 2: String  (Product Name)
+                pc.getBrand(),                // Col 3: String  (Brand)
+                pc.getCategoryName(),         // Col 4: String  (Category)
+                pc.getTargetGroup(),          // Col 5: String  (Target Group) - or "" if null
+                pc.getSize(),                 // Col 6: String  (Size) - or "" if null
+                pc.getColor(),                // Col 7: String  (Color) - or "" if null
+                pc.getSellingPrice(),         // Col 8: Double  (Price)
+                pc.getDiscountedPrice(),      // Col 9: Double  (Discounted Price)
+                pc.getStockQuantity(),        // Col 10: Integer (Qty)
+                pc.getStatus()                // Col 11: String  (Status)
+            });
+        }
     }
     
 

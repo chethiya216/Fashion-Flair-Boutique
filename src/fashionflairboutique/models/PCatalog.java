@@ -159,6 +159,10 @@ public class PCatalog {
     public double getDiscountedPrice() {
         return sellingPrice - (sellingPrice * (discountPercentage / 100.0));
     }
+    
+    public void setDiscountedPrice(double discountedPrice) {
+        this.sellingPrice = discountedPrice;
+    }
 
     @Override
     public String toString() {
