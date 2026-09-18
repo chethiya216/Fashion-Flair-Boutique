@@ -229,7 +229,7 @@ public class ProductCatalog extends javax.swing.JFrame {
         jTFPName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFPName, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 220, -1));
 
-        jTableCatalog.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jTableCatalog.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTableCatalog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
