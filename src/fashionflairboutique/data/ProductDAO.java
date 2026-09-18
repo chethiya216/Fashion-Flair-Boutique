@@ -67,9 +67,10 @@ public class ProductDAO {
 
     // 3. Update Product
     public boolean updateProduct(Product p) throws SQLException {
-        String sql = "UPDATE products SET barcode=?, product_name=?, brand=?, category_id=?, target_group=?, " +
-                     "size=?, color=?, buying_price=?, selling_price=?, discount_percentage=?, stock_quantity=?, status=? " +
-                     "WHERE product_id=?";
+        String sql = "UPDATE products SET barcode = ?, product_name = ?, brand = ?, "
+                   + "category_id = ?, target_group = ?, size = ?, color = ?, "
+                   + "buying_price = ?, selling_price = ?, discount_percentage = ?, "
+                   + "stock_quantity = ?, status = ? WHERE product_id = ?";
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -225,5 +226,138 @@ public class ProductDAO {
         p.setStatus(rs.getString("status"));
         return p;
     }
+    
+    public boolean restockProduct(int productId, int qtyToAdd, int userId) throws SQLException {
+        String selectStockSql = "SELECT stock_quantity FROM products WHERE product_id = ?";
+        String updateStockSql = "UPDATE products SET stock_quantity = stock_quantity + ? WHERE product_id = ?";
+        String insertLogSql = "INSERT INTO inventory_logs "
+                            + "(product_id, change_type, quantity_changed, previous_stock, new_stock, logged_by, log_date) "
+                            + "VALUES (?, 'RESTOCK', ?, ?, ?, ?, NOW())";
+
+        Connection conn = null;
+        try {
+            conn = DatabaseConnector.getInstance().getConnection();
+            conn.setAutoCommit(false); // Start transaction
+
+            int previousStock = 0;
+
+            // 1. Fetch current stock (previous_stock)
+            try (PreparedStatement stmtSelect = conn.prepareStatement(selectStockSql)) {
+                stmtSelect.setInt(1, productId);
+                try (ResultSet rs = stmtSelect.executeQuery()) {
+                    if (rs.next()) {
+                        previousStock = rs.getInt("stock_quantity");
+                    } else {
+                        conn.rollback();
+                        return false; // Product not found
+                    }
+                }
+            }
+
+            int newStock = previousStock + qtyToAdd;
+
+            // 2. Update stock in products table
+            try (PreparedStatement stmtUpdate = conn.prepareStatement(updateStockSql)) {
+                stmtUpdate.setInt(1, qtyToAdd);
+                stmtUpdate.setInt(2, productId);
+                int rowsUpdated = stmtUpdate.executeUpdate();
+                if (rowsUpdated == 0) {
+                    conn.rollback();
+                    return false;
+                }
+            }
+
+            // 3. Insert into inventory_logs matching your exact schema
+            try (PreparedStatement stmtLog = conn.prepareStatement(insertLogSql)) {
+                stmtLog.setInt(1, productId);
+                stmtLog.setInt(2, qtyToAdd);       // quantity_changed
+                stmtLog.setInt(3, previousStock);  // previous_stock
+                stmtLog.setInt(4, newStock);       // new_stock
+                stmtLog.setInt(5, userId);         // logged_by
+                stmtLog.executeUpdate();
+            }
+
+            conn.commit(); // Commit transaction if all steps succeeded
+            return true;
+
+        } catch (SQLException ex) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // Rollback changes if an error occurs
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            throw ex;
+        } finally {
+            if (conn != null) {
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+        }
+    }
+    
+    public boolean adjustProductStock(int productId, int targetStock, int loggedByUserId) {
+        String getCurrentStockSql = "SELECT stock_quantity FROM products WHERE product_id = ?";
+        String updateStockSql = "UPDATE products SET stock_quantity = ? WHERE product_id = ?";
+        String insertLogSql = "INSERT INTO inventory_logs (product_id, change_type, quantity_changed, previous_stock, new_stock, logged_by) " +
+                              "VALUES (?, 'ADJUSTMENT', ?, ?, ?, ?)";
+
+        Connection conn = null;
+        try {
+            conn = DatabaseConnector.getInstance().getConnection();
+            conn.setAutoCommit(false); // Begin Transaction
+
+            int previousStock = 0;
+            try (PreparedStatement psGet = conn.prepareStatement(getCurrentStockSql)) {
+                psGet.setInt(1, productId);
+                try (ResultSet rs = psGet.executeQuery()) {
+                    if (rs.next()) {
+                        previousStock = rs.getInt("stock_quantity");
+                    } else {
+                        conn.rollback();
+                        return false;
+                    }
+                }
+            }
+
+            int quantityChanged = targetStock - previousStock;
+
+            if (quantityChanged == 0) {
+                conn.rollback();
+                return true;
+            }
+
+            try (PreparedStatement psUpdate = conn.prepareStatement(updateStockSql)) {
+                psUpdate.setInt(1, targetStock);
+                psUpdate.setInt(2, productId);
+                psUpdate.executeUpdate();
+            }
+
+            try (PreparedStatement psLog = conn.prepareStatement(insertLogSql)) {
+                psLog.setInt(1, productId);
+                psLog.setInt(2, quantityChanged);
+                psLog.setInt(3, previousStock);
+                psLog.setInt(4, targetStock);
+                psLog.setInt(5, loggedByUserId);
+                psLog.executeUpdate();
+            }
+
+            conn.commit();
+            return true;
+
+        } catch (SQLException e) {
+            if (conn != null) {
+                try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) {
+                try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        }
+    }
+    
     
 }
