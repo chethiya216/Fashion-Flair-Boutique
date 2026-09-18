@@ -195,6 +195,7 @@ public class ManageProducts extends javax.swing.JFrame {
     
     private Product buildProductFromForm() {
         Product p = new Product();
+
         p.setBarcode(jTFBarcode.getText().trim());
         p.setProductName(jTFPName.getText().trim());
         p.setBrand(jTFBrand.getText().trim());
@@ -202,18 +203,21 @@ public class ManageProducts extends javax.swing.JFrame {
         Category selectedCategory = (Category) jCBCategory.getSelectedItem();
         p.setCategoryId(selectedCategory != null ? selectedCategory.getCategoryId() : 0);
 
-        p.setTargetGroup((String) jCBTargetGroup.getSelectedItem());
-        p.setSize((String) jCBSize.getSelectedItem());
+        // Safe toString() casting to avoid NullPointerException on unselected combo boxes
+        p.setTargetGroup(jCBTargetGroup.getSelectedItem() != null ? jCBTargetGroup.getSelectedItem().toString() : "");
+        p.setSize(jCBSize.getSelectedItem() != null ? jCBSize.getSelectedItem().toString() : "");
         p.setColor(jTFColor.getText().trim());
-        p.setStatus((String) jCBStatus.getSelectedItem());
+        p.setStatus(jCBStatus.getSelectedItem() != null ? jCBStatus.getSelectedItem().toString() : "ACTIVE");
 
         p.setBuyingPrice(jTFBuyPrice.getText().trim().isEmpty()
             ? BigDecimal.ZERO : new BigDecimal(jTFBuyPrice.getText().trim()));
+
         p.setSellingPrice(jTFSellPrice.getText().trim().isEmpty()
             ? BigDecimal.ZERO : new BigDecimal(jTFSellPrice.getText().trim()));
-//        p.setDiscountPercentage(BigDecimal.ZERO); // set from a discount field if you add one to the form
+
         p.setDiscountPercentage(jTFDiscount.getText().trim().isEmpty()
             ? BigDecimal.ZERO : new BigDecimal(jTFDiscount.getText().trim()));
+
         p.setStockQuantity(jTFQty.getText().trim().isEmpty()
             ? 0 : Integer.parseInt(jTFQty.getText().trim()));
 
@@ -422,6 +426,7 @@ public class ManageProducts extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnRestock, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 520, -1, -1));
 
+        jTableShowProducts.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTableShowProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -539,32 +544,50 @@ public class ManageProducts extends javax.swing.JFrame {
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         try {
+            // 1. Build product using existing method
             Product p = buildProductFromForm();
 
-            if (p.getCategoryId() == 0) {
-//                JOptionPane.showMessageDialog(this, "Please select a category.",
-//                    "Missing Category", JOptionPane.WARNING_MESSAGE);
-                UIUtils.showError(jLblMessage, "Please select a category!!");
-
+            // 2. Validate mandatory text fields
+            if (p.getProductName().isEmpty()) {
+                UIUtils.showError(jLblMessage, "Product Name cannot be empty!");
+                jTFPName.requestFocus();
                 return;
             }
 
-            ProductDAO dao = new ProductDAO();
-            if (dao.addProduct(p)) {
-//                JOptionPane.showMessageDialog(this, "Product added successfully!");
+            if (p.getBarcode().isEmpty()) {
+                UIUtils.showError(jLblMessage, "Barcode cannot be empty!");
+                jTFBarcode.requestFocus();
+                return;
+            }
+
+            // 3. Validate category selection
+            if (p.getCategoryId() == 0) {
+                UIUtils.showError(jLblMessage, "Please select a valid category!");
+                jCBCategory.requestFocus();
+                return;
+            }
+
+            // 4. Validate numeric requirements
+            if (p.getSellingPrice().compareTo(BigDecimal.ZERO) <= 0) {
+                UIUtils.showError(jLblMessage, "Selling Price must be greater than 0!");
+                jTFSellPrice.requestFocus();
+                return;
+            }
+
+            // 5. Insert into Database
+            if (productDAO.addProduct(p)) {
                 UIUtils.showSuccess(jLblMessage, "Product added successfully!");
                 clearForm();
                 triggerSearch();
+            } else {
+                UIUtils.showError(jLblMessage, "Failed to add product.");
             }
+
         } catch (NumberFormatException ex) {
-//            JOptionPane.showMessageDialog(this, "Enter valid numbers for price/quantity.",
-//                "Input Error", JOptionPane.ERROR_MESSAGE);
-                UIUtils.showError(jLblMessage, "Enter valid numbers for price/quantity!!");
+            UIUtils.showError(jLblMessage, "Enter valid numbers for price/quantity!");
         } catch (SQLException ex) {
             ex.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(),
-//                "Error", JOptionPane.ERROR_MESSAGE);
-                UIUtils.showError(jLblMessage, "Database error: " + ex.getMessage());
+            UIUtils.showError(jLblMessage, "Database error: " + ex.getMessage());
         }
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
@@ -652,30 +675,39 @@ public class ManageProducts extends javax.swing.JFrame {
         }
 
         try {
-            // 1. Build updated product from form fields
+            // 1. Build product details from form fields
             Product p = buildProductFromForm();
-            p.setProductId(selectedProductId); // Set the active ID for SQL WHERE clause
+
+            // Basic validation
+            if (p.getProductName().isEmpty()) {
+                UIUtils.showError(jLblMessage, "Product Name cannot be empty!");
+                return;
+            }
 
             if (p.getCategoryId() == 0) {
                 UIUtils.showError(jLblMessage, "Please select a valid category!");
                 return;
             }
 
-            // 2. Perform DB update
-            boolean success = productDAO.updateProduct(p);
+            // 2. Get user ID and target stock quantity
+            int userId = (currentUser != null) ? currentUser.getUserId() : 1;
+            int targetStock = p.getStockQuantity();
+
+            // 3. Perform stock adjustment and log entry in inventory_logs
+            boolean success = productDAO.adjustProductStock(selectedProductId, targetStock, userId);
 
             if (success) {
-                UIUtils.showSuccess(jLblMessage, "Product updated successfully!");
+                UIUtils.showSuccess(jLblMessage, "Product stock updated and inventory log recorded!");
                 clearForm();
-                triggerSearch(); // Reload table data from DB
+                triggerSearch(); // Refresh UI table
             } else {
-                UIUtils.showError(jLblMessage, "Failed to update product details.");
+                UIUtils.showError(jLblMessage, "Failed to update stock quantity.");
             }
         } catch (NumberFormatException ex) {
             UIUtils.showError(jLblMessage, "Enter valid numbers for prices and quantity!");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            UIUtils.showError(jLblMessage, "Database error: " + ex.getMessage());
+            UIUtils.showError(jLblMessage, "An error occurred: " + ex.getMessage());
         }
     }//GEN-LAST:event_jBtnUpdateActionPerformed
 
