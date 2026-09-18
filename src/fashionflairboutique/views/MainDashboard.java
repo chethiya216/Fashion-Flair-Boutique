@@ -63,10 +63,8 @@ public class MainDashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLblUname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLblClose = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 252, 246));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,9 +84,9 @@ public class MainDashboard extends javax.swing.JFrame {
         jBtnManageUsers.setFont(new java.awt.Font("Aarvark Cafe", 0, 36)); // NOI18N
         jBtnManageUsers.setForeground(new java.awt.Color(255, 255, 255));
         jBtnManageUsers.setText("Manage Users");
-        jBtnManageUsers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtnManageUsersMouseClicked(evt);
+        jBtnManageUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnManageUsersActionPerformed(evt);
             }
         });
         jPanel1.add(jBtnManageUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 260, 100));
@@ -148,14 +146,6 @@ public class MainDashboard extends javax.swing.JFrame {
         jLabel2.setText("Main Dashboard");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, -1, 80));
 
-        jLblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close.png"))); // NOI18N
-        jLblClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLblCloseMouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 10, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,16 +160,6 @@ public class MainDashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBtnManageUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnManageUsersMouseClicked
-        ManageUser mu = new ManageUser();
-        mu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jBtnManageUsersMouseClicked
-
-    private void jLblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCloseMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_jLblCloseMouseClicked
 
     private void jBtnManageProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnManageProductsActionPerformed
         ManageProducts mp = new ManageProducts(currentUser);
@@ -210,6 +190,12 @@ public class MainDashboard extends javax.swing.JFrame {
         df.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnManageDiscountsActionPerformed
+
+    private void jBtnManageUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnManageUsersActionPerformed
+        ManageUser mu = new ManageUser(currentUser);
+        mu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnManageUsersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,7 +242,6 @@ public class MainDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jBtnSalesReports;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLblClose;
     private javax.swing.JLabel jLblUname;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

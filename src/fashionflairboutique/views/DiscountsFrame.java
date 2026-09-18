@@ -45,6 +45,21 @@ public class DiscountsFrame extends javax.swing.JFrame {
             populateFormFromSelectedPromotion();
         }
         });
+        
+        if (this.currentUser != null) {
+            // 1. Set BorderLayout on your newly created side panel
+            jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
+
+            // 2. Instantiate your custom SidebarPanel
+            SidebarPanel sidebar = new SidebarPanel(this, currentUser);
+
+            // 3. Add sidebar to the side panel container
+            jPanelsidebarPanelContainer.add(sidebar, java.awt.BorderLayout.CENTER);
+
+            // 4. Refresh both the container and the frame
+            jPanelsidebarPanelContainer.revalidate();
+            jPanelsidebarPanelContainer.repaint();
+        }
     }
     
     private void loadActiveCampaignsTable(){
@@ -175,19 +190,21 @@ public class DiscountsFrame extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jBtnRemove = new javax.swing.JButton();
         jBtnAddCategoryPromo = new javax.swing.JButton();
+        jPanelsidebarPanelContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 252, 246));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));
         jLabel2.setText("Manage Discounts and Promotions");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, 80));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, -1, 80));
 
         jLabel12.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel12.setText("Description :");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 670, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 670, -1, -1));
 
         jTableActiveCamps.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTableActiveCamps.setModel(new javax.swing.table.DefaultTableModel(
@@ -218,19 +235,19 @@ public class DiscountsFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableActiveCamps);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 1250, 140));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 1250, 140));
 
         jLabel13.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel13.setText("Active Campaigns");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel14.setText("Campaign Details");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel15.setText("Select Catagory  for the Promo");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 380, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 380, -1, -1));
 
         jBtnDeactivate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jBtnDeactivate.setText("Deactivate Selected Promo");
@@ -239,31 +256,31 @@ public class DiscountsFrame extends javax.swing.JFrame {
                 jBtnDeactivateActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnDeactivate, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 800, -1, 40));
+        jPanel1.add(jBtnDeactivate, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 800, -1, 40));
 
         jLabel16.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel16.setText("Target Group :");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 430, -1, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 430, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel17.setText("Promotion Name :");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, -1, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 430, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel18.setText("Discount Pct :");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 480, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel19.setText("Start Date :");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, -1, -1));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel20.setText("End Date :");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 570, -1, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 570, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel21.setText("Status :");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 620, -1, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 620, -1, -1));
 
         jBtnCancel.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jBtnCancel.setText("Cancel");
@@ -272,28 +289,28 @@ public class DiscountsFrame extends javax.swing.JFrame {
                 jBtnCancelActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 800, -1, 40));
+        jPanel1.add(jBtnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 800, -1, 40));
 
         jTFPromoName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFPromoName, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, 200, -1));
+        jPanel1.add(jTFPromoName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 200, -1));
 
         jDateChooserEnd.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jDateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, 200, 30));
+        jPanel1.add(jDateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 570, 200, 30));
 
         jDateChooserStart.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jDateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 520, 200, 30));
+        jPanel1.add(jDateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 520, 200, 30));
 
         jCBStatus.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jCBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 620, 200, -1));
+        jPanel1.add(jCBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 620, 200, -1));
 
         jTFDiscountPct.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFDiscountPct, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 470, 200, -1));
+        jPanel1.add(jTFDiscountPct, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 470, 200, -1));
 
         jTADescription.setColumns(20);
         jTADescription.setRows(5);
         jScrollPane3.setViewportView(jTADescription);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 670, -1, -1));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 670, -1, -1));
 
         jBtnSave.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jBtnSave.setText("Save Campaign");
@@ -302,17 +319,17 @@ public class DiscountsFrame extends javax.swing.JFrame {
                 jBtnSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 800, -1, 40));
+        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 800, -1, 40));
 
         jCBTargetGroup.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jCBTargetGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 460, 200, -1));
+        jPanel1.add(jCBTargetGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 460, 200, -1));
 
         jCBCategories.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jCBCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 460, 200, -1));
+        jPanel1.add(jCBCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 460, 200, -1));
 
         jLabel22.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel22.setText("Categories");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 430, -1, -1));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 430, -1, -1));
 
         jTableCategoryPromo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTableCategoryPromo.setModel(new javax.swing.table.DefaultTableModel(
@@ -343,31 +360,31 @@ public class DiscountsFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableCategoryPromo);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 520, 600, 230));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 520, 600, 230));
 
         jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowUser.setText("User :");
-        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 290, -1));
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 290, -1));
 
         jLabel23.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel23.setText("User :");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel24.setText("Date  :");
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
 
         jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowDate.setText("User :");
-        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 290, -1));
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 290, -1));
 
         jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
-        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 220, -1));
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 220, -1));
 
         jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel25.setText("Time :");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
 
         jBtnRemove.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jBtnRemove.setText("Remove ");
@@ -376,7 +393,7 @@ public class DiscountsFrame extends javax.swing.JFrame {
                 jBtnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 780, -1, 40));
+        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 780, -1, 40));
 
         jBtnAddCategoryPromo.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jBtnAddCategoryPromo.setText("Add Category to Promo");
@@ -385,17 +402,21 @@ public class DiscountsFrame extends javax.swing.JFrame {
                 jBtnAddCategoryPromoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnAddCategoryPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 780, -1, 40));
+        jPanel1.add(jBtnAddCategoryPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 780, -1, 40));
+
+        jPanelsidebarPanelContainer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanelsidebarPanelContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 890));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1395, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1725, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -620,6 +641,7 @@ public class DiscountsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLblShowTime;
     private javax.swing.JLabel jLblShowUser;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelsidebarPanelContainer;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

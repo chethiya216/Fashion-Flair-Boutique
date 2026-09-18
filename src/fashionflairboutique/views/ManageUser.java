@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import fashionflairboutique.utils.UIUtils;
+import javax.swing.Timer;
 
 /**
  *
@@ -17,14 +18,40 @@ import fashionflairboutique.utils.UIUtils;
  */
 public class ManageUser extends javax.swing.JFrame {
 
+    private User currentUser;
+    private Timer clockTimer;
     /**
      * Creates new form ManageUser
      */
     public ManageUser() {
         initComponents();
+        
+    }
+    
+    public ManageUser(User loggedInUser){
+        initComponents();
+        this.currentUser = loggedInUser;
+        
+        UIUtils.displayUserDetails(jLblShowUser, currentUser);
+        this.clockTimer = UIUtils.startLiveClock(jLblShowDate, jLblShowTime);
         loadUsersTable();
         jCBResetPass.setSelected(false);
         togglePasswordFields(false);
+        
+        // Setup Sidebar
+        if (this.currentUser != null) {
+            jPanelsidebarPanelContainer.removeAll();
+            jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
+
+            SidebarPanel sidebar = new SidebarPanel(this, currentUser);
+            jPanelsidebarPanelContainer.add(sidebar, java.awt.BorderLayout.CENTER);
+
+            jPanelsidebarPanelContainer.revalidate();
+            jPanelsidebarPanelContainer.repaint();
+        } else {
+            System.err.println("Sidebar skipped because currentUser is NULL.");
+        }
+        
     }
     
     private void togglePasswordFields(boolean visible) {
@@ -120,28 +147,33 @@ public class ManageUser extends javax.swing.JFrame {
         jBtnUpdate = new javax.swing.JButton();
         jComboBRole = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLblTime1 = new javax.swing.JLabel();
         jLblDate1 = new javax.swing.JLabel();
         jTFUserID = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jComboBStatus = new javax.swing.JComboBox<>();
         jLblMessage = new javax.swing.JLabel();
+        jPanelsidebarPanelContainer = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLblShowUser = new javax.swing.JLabel();
+        jLblShowDate = new javax.swing.JLabel();
+        jLblShowTime = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1400, 980));
+        setMinimumSize(new java.awt.Dimension(1500, 980));
         setPreferredSize(new java.awt.Dimension(1300, 831));
 
         jPanel1.setBackground(new java.awt.Color(255, 252, 246));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1700, 900));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(12, 192, 223));
         jLabel3.setText("Manage Users");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, -1, -1));
 
         jTableUsers.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jTableUsers.setModel(new javax.swing.table.DefaultTableModel(
@@ -177,11 +209,11 @@ public class ManageUser extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableUsers);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 900, 580));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 900, 580));
 
         jLblPassword.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblPassword.setText("Password");
-        jPanel1.add(jLblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 610, -1, -1));
+        jPanel1.add(jLblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 630, -1, -1));
 
         jBtnDelete.setBackground(new java.awt.Color(255, 0, 0));
         jBtnDelete.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
@@ -192,42 +224,42 @@ public class ManageUser extends javax.swing.JFrame {
                 jBtnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 810, -1, -1));
+        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 830, -1, -1));
 
         jTFUname.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 300, -1));
+        jPanel1.add(jTFUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 300, -1));
 
         jPFPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, 300, -1));
+        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 660, 300, -1));
 
         jLblUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jPanel1.add(jLblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 130, -1));
 
         jTFFullName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 300, -1));
+        jPanel1.add(jTFFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 300, -1));
 
         jLabel4.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel4.setText("Full Name :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
 
         jTFEmail.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 300, -1));
+        jPanel1.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 300, -1));
 
         jLabel5.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel5.setText("Email :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel6.setText("Role :");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 460, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel7.setText("Status :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 540, -1, -1));
 
         jLblConPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblConPass.setText("Confirm Password");
-        jPanel1.add(jLblConPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, -1, -1));
+        jPanel1.add(jLblConPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 710, -1, -1));
 
         jCBResetPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 16)); // NOI18N
         jCBResetPass.setText("Reset Password?");
@@ -241,10 +273,10 @@ public class ManageUser extends javax.swing.JFrame {
                 jCBResetPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCBResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 600, -1, -1));
+        jPanel1.add(jCBResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, -1, -1));
 
         jPFConPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jPFConPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 720, 300, -1));
+        jPanel1.add(jPFConPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 740, 300, -1));
 
         jCBShowPass.setFont(new java.awt.Font("Aarvark Cafe", 0, 16)); // NOI18N
         jCBShowPass.setText("Show Password");
@@ -253,7 +285,7 @@ public class ManageUser extends javax.swing.JFrame {
                 jCBShowPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 760, -1, -1));
+        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 780, -1, -1));
 
         jBtnSave.setBackground(new java.awt.Color(0, 102, 255));
         jBtnSave.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
@@ -264,7 +296,7 @@ public class ManageUser extends javax.swing.JFrame {
                 jBtnSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 810, 80, -1));
+        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 830, 80, -1));
 
         jBtnUpdate.setBackground(new java.awt.Color(0, 195, 145));
         jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
@@ -275,27 +307,15 @@ public class ManageUser extends javax.swing.JFrame {
                 jBtnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 810, -1, -1));
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 830, -1, -1));
 
         jComboBRole.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jComboBRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role", "Boutique Manager", "Sales Assistant" }));
-        jPanel1.add(jComboBRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 300, 40));
+        jPanel1.add(jComboBRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 300, 40));
 
         jLabel10.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel10.setText("Username :");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel11.setText("User :");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel9.setText("Date  :");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 220, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel12.setText("Time :");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 220, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
 
         jLblTime1.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jPanel1.add(jLblTime1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 220, 130, -1));
@@ -305,101 +325,63 @@ public class ManageUser extends javax.swing.JFrame {
 
         jTFUserID.setEditable(false);
         jTFUserID.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFUserID, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 300, -1));
+        jPanel1.add(jTFUserID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 300, -1));
 
         jLabel13.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel13.setText("ID :");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
 
         jComboBStatus.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jComboBStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Status", "Active", "Inactive" }));
-        jPanel1.add(jComboBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 300, 40));
+        jPanel1.add(jComboBStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 570, 300, 40));
 
         jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 860, -1));
+        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 220, 860, 30));
+
+        jPanelsidebarPanelContainer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanelsidebarPanelContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 910));
+
+        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel17.setText("Date  :");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setText("User :");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+
+        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setText("User :");
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 290, -1));
+
+        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setText("User :");
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 290, -1));
+
+        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setText("User :");
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 220, -1));
+
+        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setText("Time :");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
-        String username = jTFUname.getText().trim();
-        String email = jTFEmail.getText().trim();
-        String fullName = jTFFullName.getText().trim();
-        String role = jComboBRole.getSelectedItem() != null ? jComboBRole.getSelectedItem().toString() : "";
-        String status = jComboBStatus.getSelectedItem() != null ? jComboBStatus.getSelectedItem().toString() : "";
-
-        String password = new String(jPFPassword.getPassword());
-        String confirmPassword = new String(jPFConPassword.getPassword());
-
-        // Basic GUI-level checks
-        if (username.isEmpty() || email.isEmpty() || fullName.isEmpty() || password.isEmpty()) {
-            UIUtils.showError(jLblMessage, "All fields are required!");
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            UIUtils.showError(jLblMessage, "Passwords do not match!");
-            return;
-        }
-
-        User newUser = new User(0, username, email, fullName, role, status);
-        UserDAO dao = new UserDAO();
-
-        // Check validation message explicitly
-        String validationError = dao.validateUserForAdd(newUser, password);
-        if (validationError != null) {
-            UIUtils.showError(jLblMessage, validationError);
-            return; // Stops here and shows exact validation failure on label
-        }
-
-        // Execute save
-        if (dao.addUser(newUser, password)) {
-            UIUtils.showSuccess(jLblMessage, "User added successfully!");
-            loadUsersTable();
-            clearFormFields();
-        } else {
-            UIUtils.showError(jLblMessage, "Database error: Could not insert user.");
-        }
-    }//GEN-LAST:event_jBtnSaveActionPerformed
-
-    private void jTableUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsersMouseClicked
-        int selectedRow = jTableUsers.getSelectedRow();
-        
-        if (selectedRow != -1) {
-            String userId = jTableUsers.getValueAt(selectedRow, 0).toString();
-            String username = jTableUsers.getValueAt(selectedRow, 1).toString();
-            String fullName = jTableUsers.getValueAt(selectedRow, 2).toString();
-            String email = jTableUsers.getValueAt(selectedRow, 3).toString();
-            String role = jTableUsers.getValueAt(selectedRow, 4).toString();
-            String status = jTableUsers.getValueAt(selectedRow, 5).toString();
-
-            // Populate GUI input fields
-            jTFUserID.setText(userId);           // Hidden or read-only text field
-            jTFUname.setText(username);
-            jTFEmail.setText(email);
-            jTFFullName.setText(fullName);
-            jComboBRole.setSelectedItem(role);
-            jComboBStatus.setSelectedItem(status);
-            
-            // Uncheck reset pass on row selection
-            if (jCBResetPass.isSelected()) {
-                jCBResetPass.setSelected(false);
-            }
-            
-        }
-    }//GEN-LAST:event_jTableUsersMouseClicked
 
     private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
         try {
@@ -457,6 +439,101 @@ public class ManageUser extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnUpdateActionPerformed
 
+    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
+        String username = jTFUname.getText().trim();
+        String email = jTFEmail.getText().trim();
+        String fullName = jTFFullName.getText().trim();
+        String role = jComboBRole.getSelectedItem() != null ? jComboBRole.getSelectedItem().toString() : "";
+        String status = jComboBStatus.getSelectedItem() != null ? jComboBStatus.getSelectedItem().toString() : "";
+
+        String password = new String(jPFPassword.getPassword());
+        String confirmPassword = new String(jPFConPassword.getPassword());
+
+        // Basic GUI-level checks
+        if (username.isEmpty() || email.isEmpty() || fullName.isEmpty() || password.isEmpty()) {
+            UIUtils.showError(jLblMessage, "All fields are required!");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            UIUtils.showError(jLblMessage, "Passwords do not match!");
+            return;
+        }
+
+        User newUser = new User(0, username, email, fullName, role, status);
+        UserDAO dao = new UserDAO();
+
+        // Check validation message explicitly
+        String validationError = dao.validateUserForAdd(newUser, password);
+        if (validationError != null) {
+            UIUtils.showError(jLblMessage, validationError);
+            return; // Stops here and shows exact validation failure on label
+        }
+
+        // Execute save
+        if (dao.addUser(newUser, password)) {
+            UIUtils.showSuccess(jLblMessage, "User added successfully!");
+            loadUsersTable();
+            clearFormFields();
+        } else {
+            UIUtils.showError(jLblMessage, "Database error: Could not insert user.");
+        }
+    }//GEN-LAST:event_jBtnSaveActionPerformed
+
+    private void jCBShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBShowPassActionPerformed
+        if (jCBShowPass.isSelected()) {
+            jPFPassword.setEchoChar((char) 0);
+            jPFConPassword.setEchoChar((char)0);
+        } else {
+            jPFPassword.setEchoChar('*');
+            jPFConPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCBShowPassActionPerformed
+
+    private void jCBResetPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBResetPassActionPerformed
+        boolean showFields = jCBResetPass.isSelected();
+
+        // Toggle Labels
+        jLblPassword.setVisible(showFields);
+        jLblConPass.setVisible(showFields);
+
+        // Toggle Password Text Fields
+        jPFPassword.setVisible(showFields);
+        jPFConPassword.setVisible(showFields);
+
+        // Clear password fields when unchecked
+        if (!showFields) {
+            jPFPassword.setText("");
+            jPFConPassword.setText("");
+        }
+
+        // Force layout refresh to adjust spacing if using layout managers
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_jCBResetPassActionPerformed
+
+    private void jCBResetPassItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBResetPassItemStateChanged
+        // Check if the checkbox is checked
+        boolean isSelected = jCBResetPass.isSelected();
+
+        // Show or hide password labels and text fields
+        jLblPassword.setVisible(isSelected);
+        jLblConPass.setVisible(isSelected);
+        jPFPassword.setVisible(isSelected);
+        jPFConPassword.setVisible(isSelected);
+        jCBShowPass.setVisible(isSelected);
+
+        // Clear password fields automatically when hidden
+        if (!isSelected) {
+            jPFPassword.setText("");
+            jPFConPassword.setText("");
+        }
+
+        // Refresh panel layout so UI adjusts cleanly
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_jCBResetPassItemStateChanged
+
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
         try {
             if (jTFUserID.getText().trim().isEmpty()) {
@@ -488,59 +565,32 @@ public class ManageUser extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnDeleteActionPerformed
 
-    private void jCBResetPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBResetPassActionPerformed
-        boolean showFields = jCBResetPass.isSelected();
+    private void jTableUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsersMouseClicked
+        int selectedRow = jTableUsers.getSelectedRow();
 
-        // Toggle Labels
-        jLblPassword.setVisible(showFields);
-        jLblConPass.setVisible(showFields);
+        if (selectedRow != -1) {
+            String userId = jTableUsers.getValueAt(selectedRow, 0).toString();
+            String username = jTableUsers.getValueAt(selectedRow, 1).toString();
+            String fullName = jTableUsers.getValueAt(selectedRow, 2).toString();
+            String email = jTableUsers.getValueAt(selectedRow, 3).toString();
+            String role = jTableUsers.getValueAt(selectedRow, 4).toString();
+            String status = jTableUsers.getValueAt(selectedRow, 5).toString();
 
-        // Toggle Password Text Fields
-        jPFPassword.setVisible(showFields);
-        jPFConPassword.setVisible(showFields);
+            // Populate GUI input fields
+            jTFUserID.setText(userId);           // Hidden or read-only text field
+            jTFUname.setText(username);
+            jTFEmail.setText(email);
+            jTFFullName.setText(fullName);
+            jComboBRole.setSelectedItem(role);
+            jComboBStatus.setSelectedItem(status);
 
-        // Clear password fields when unchecked
-        if (!showFields) {
-            jPFPassword.setText("");
-            jPFConPassword.setText("");
+            // Uncheck reset pass on row selection
+            if (jCBResetPass.isSelected()) {
+                jCBResetPass.setSelected(false);
+            }
+
         }
-
-        // Force layout refresh to adjust spacing if using layout managers
-        this.revalidate();
-        this.repaint();
-    }//GEN-LAST:event_jCBResetPassActionPerformed
-
-    private void jCBShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBShowPassActionPerformed
-        if (jCBShowPass.isSelected()) {
-            jPFPassword.setEchoChar((char) 0); 
-            jPFConPassword.setEchoChar((char)0);
-        } else {
-            jPFPassword.setEchoChar('*'); 
-            jPFConPassword.setEchoChar('*');
-        }
-    }//GEN-LAST:event_jCBShowPassActionPerformed
-
-    private void jCBResetPassItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBResetPassItemStateChanged
-        // Check if the checkbox is checked
-        boolean isSelected = jCBResetPass.isSelected();
-
-        // Show or hide password labels and text fields
-        jLblPassword.setVisible(isSelected);
-        jLblConPass.setVisible(isSelected);
-        jPFPassword.setVisible(isSelected);
-        jPFConPassword.setVisible(isSelected);
-        jCBShowPass.setVisible(isSelected);
-
-        // Clear password fields automatically when hidden
-        if (!isSelected) {
-            jPFPassword.setText("");
-            jPFConPassword.setText("");
-        }
-
-        // Refresh panel layout so UI adjusts cleanly
-        this.revalidate();
-        this.repaint();
-    }//GEN-LAST:event_jCBResetPassItemStateChanged
+    }//GEN-LAST:event_jTableUsersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -586,24 +636,28 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBRole;
     private javax.swing.JComboBox<String> jComboBStatus;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLblConPass;
     private javax.swing.JLabel jLblDate1;
     private javax.swing.JLabel jLblMessage;
     private javax.swing.JLabel jLblPassword;
+    private javax.swing.JLabel jLblShowDate;
+    private javax.swing.JLabel jLblShowTime;
+    private javax.swing.JLabel jLblShowUser;
     private javax.swing.JLabel jLblTime1;
     private javax.swing.JLabel jLblUser;
     private javax.swing.JPasswordField jPFConPassword;
     private javax.swing.JPasswordField jPFPassword;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelsidebarPanelContainer;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFFullName;
