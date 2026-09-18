@@ -27,6 +27,7 @@ public class MainDashboard extends javax.swing.JFrame {
             jBtnManageDiscounts.setVisible(false);
             jBtnManageUsers.setVisible(false);
             jBtnSalesReports.setVisible(false);
+            jBtnManageCategories.setVisible(false);
 
         }
     }
