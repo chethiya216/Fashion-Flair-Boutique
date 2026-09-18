@@ -165,21 +165,17 @@ public class DiscountDAO {
     }
     
     public int linkCategoryToPromotion(int promotionId, String categoryName, String targetGroup) throws IllegalStateException {
-        String checkPromoSQL = "SELECT discount_percentage, status FROM Promotions WHERE promotion_id = ?";
+        String checkPromoSQL = "SELECT status FROM Promotions WHERE promotion_id = ?";
         String linkSQL = "INSERT IGNORE INTO Promotion_Products (promotion_id, product_id) " +
                           "SELECT ?, p.product_id FROM products p " +
                           "JOIN categories c ON p.category_id = c.category_id " +
                           "WHERE c.category_name = ? AND p.target_group = ?";
-        String syncDiscountSQL = "UPDATE products p JOIN categories c ON p.category_id = c.category_id " +
-                                  "SET p.discount_percentage = ? " +
-                                  "WHERE c.category_name = ? AND p.target_group = ?";
 
         Connection conn = null;
         try {
             conn = DatabaseConnector.getInstance().getConnection();
             conn.setAutoCommit(false);
 
-            double promoDiscount = 0.0;
             String status = null;
             boolean promotionExists = false;
 
@@ -188,7 +184,6 @@ public class DiscountDAO {
                 try (ResultSet rs = checkStmt.executeQuery()) {
                     if (rs.next()) {
                         promotionExists = true;
-                        promoDiscount = rs.getDouble("discount_percentage");
                         status = rs.getString("status");
                     }
                 }
@@ -212,22 +207,13 @@ public class DiscountDAO {
                 linkedCount = linkStmt.executeUpdate();
             }
 
-            if (linkedCount > 0) {
-                try (PreparedStatement syncStmt = conn.prepareStatement(syncDiscountSQL)) {
-                    syncStmt.setDouble(1, promoDiscount);
-                    syncStmt.setString(2, categoryName);
-                    syncStmt.setString(3, targetGroup);
-                    syncStmt.executeUpdate();
-                }
-            }
-
             conn.commit();
             return linkedCount;
 
         } catch (SQLException e) {
             if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); } }
             e.printStackTrace();
-            return 0;
+            throw new IllegalStateException("Database error while linking promotion: " + e.getMessage());
         } finally {
             if (conn != null) { try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); } }
         }

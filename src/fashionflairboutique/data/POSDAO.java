@@ -158,7 +158,19 @@ public class POSDAO {
      * ('Active', not 'ACTIVE').
      */
     public POS getProductByBarcode(String barcodeText) {
-        String sql = "SELECT * FROM products WHERE barcode = ? AND status = 'Active'";
+        String sql =
+            "SELECT p.*, " +
+            "  COALESCE(" +
+            "    (SELECT MAX(pr.discount_percentage) " +
+            "     FROM Promotion_Products pp " +
+            "     JOIN Promotions pr ON pp.promotion_id = pr.promotion_id " +
+            "     WHERE pp.product_id = p.product_id " +
+            "       AND pr.status = 'Active' " +
+            "       AND CURDATE() BETWEEN pr.start_date AND pr.end_date), " +
+            "    p.discount_percentage" +
+            "  ) AS effective_discount " +
+            "FROM products p " +
+            "WHERE p.barcode = ? AND p.status = 'Active'";
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -173,7 +185,7 @@ public class POSDAO {
                     pos.setProductName(rs.getString("product_name"));
                     pos.setPrice(rs.getDouble("selling_price"));
                     pos.setAvailableQty(rs.getInt("stock_quantity"));
-                    pos.setDiscount(rs.getDouble("discount_percentage")); // product's standing discount - prefilled default
+                    pos.setDiscount(rs.getDouble("effective_discount")); // promo, if active - else the product's own default
                     return pos;
                 }
             }

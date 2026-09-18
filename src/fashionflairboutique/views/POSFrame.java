@@ -109,7 +109,6 @@ public class POSFrame extends javax.swing.JFrame {
         String barcodeText = jTFBarcode.getText().trim();
 
         if (barcodeText.isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Please enter a barcode.", "Warning", JOptionPane.WARNING_MESSAGE);
             UIUtils.showError(jLblMessage, "Please enter a barcode!");
             return;
         }
@@ -118,18 +117,21 @@ public class POSFrame extends javax.swing.JFrame {
         POS pos = posDAO.getProductByBarcode(barcodeText);
 
         if (pos != null) {
-            // Populate the UI text fields matching your form elements
-            currentScannedProduct = pos;  
+            currentScannedProduct = pos;
             jTFPName.setText(pos.getProductName());
             jTFPrice.setText(String.format("%.2f", pos.getPrice()));
             jTFAvailableQty.setText(String.valueOf(pos.getAvailableQty()));
 
-            // Reset quantity input to 1 and shift focus to quantity field
             jTFQty.setText("");
             jTFQty.requestFocus();
+
+            if (pos.getDiscount() > 0) {
+                UIUtils.showSuccess(jLblMessage, pos.getProductName() + " has a " +
+                    String.format("%.0f", pos.getDiscount()) + "% discount applied!");
+            }
+            
         } else {
             currentScannedProduct = null;
-//            JOptionPane.showMessageDialog(this, "Product not found!", "Search Error", JOptionPane.ERROR_MESSAGE);
             UIUtils.showError(jLblMessage, "Product not found!");
             clearProductFields();
             jTFBarcode.requestFocus();
