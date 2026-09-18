@@ -142,8 +142,8 @@ public class Login extends javax.swing.JFrame {
             fashionflairboutique.models.User loggedInUser = userDAO.authenticateUser(email, password);
 
             if (loggedInUser != null) {
-                JOptionPane.showMessageDialog(this, "Welcome, " + loggedInUser.getFullName() + "!",
-                        "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(this, "Welcome, " + loggedInUser.getFullName() + "!",
+//                        "Login Successful", JOptionPane.INFORMATION_MESSAGE);
 
                 // 3. Role-Based Navigation
                 if ("Store Manager".equalsIgnoreCase(loggedInUser.getRole())) {
