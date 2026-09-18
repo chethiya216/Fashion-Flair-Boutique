@@ -202,9 +202,9 @@ public class DiscountsFrame extends javax.swing.JFrame {
         jLabel2.setText("Manage Discounts and Promotions");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, -1, 80));
 
-        jLabel12.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Description :");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 670, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 670, -1, -1));
 
         jTableActiveCamps.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTableActiveCamps.setModel(new javax.swing.table.DefaultTableModel(
@@ -249,47 +249,49 @@ public class DiscountsFrame extends javax.swing.JFrame {
         jLabel15.setText("Select Catagory  for the Promo");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 380, -1, -1));
 
-        jBtnDeactivate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnDeactivate.setBackground(new java.awt.Color(127, 140, 141));
+        jBtnDeactivate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnDeactivate.setText("Deactivate Selected Promo");
         jBtnDeactivate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnDeactivateActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnDeactivate, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 800, -1, 40));
+        jPanel1.add(jBtnDeactivate, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 800, -1, 40));
 
-        jLabel16.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel16.setText("Target Group :");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 430, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setText("Promotion Name :");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 430, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Discount Pct :");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 480, -1, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 470, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel19.setText("Start Date :");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, -1, -1));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 520, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel20.setText("End Date :");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 570, -1, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 570, -1, -1));
 
-        jLabel21.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel21.setText("Status :");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 620, -1, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, -1, -1));
 
-        jBtnCancel.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnCancel.setBackground(new java.awt.Color(231, 76, 60));
+        jBtnCancel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnCancel.setText("Cancel");
         jBtnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCancelActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 800, -1, 40));
+        jPanel1.add(jBtnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 800, -1, 40));
 
         jTFPromoName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFPromoName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 200, -1));
@@ -312,14 +314,15 @@ public class DiscountsFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 670, -1, -1));
 
-        jBtnSave.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnSave.setBackground(new java.awt.Color(46, 204, 113));
+        jBtnSave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnSave.setText("Save Campaign");
         jBtnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 800, -1, 40));
+        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 800, -1, 40));
 
         jCBTargetGroup.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jCBTargetGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 460, 200, -1));
@@ -327,7 +330,7 @@ public class DiscountsFrame extends javax.swing.JFrame {
         jCBCategories.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jCBCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 460, 200, -1));
 
-        jLabel22.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel22.setText("Categories");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 430, -1, -1));
 
@@ -362,40 +365,42 @@ public class DiscountsFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 520, 600, 230));
 
-        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowUser.setText("User :");
-        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 290, -1));
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 290, -1));
 
-        jLabel23.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel23.setText("User :");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel24.setText("Date  :");
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel24.setText("Date :");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
 
-        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowDate.setText("User :");
-        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 290, -1));
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 290, -1));
 
-        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
-        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 220, -1));
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 220, -1));
 
-        jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel25.setText("Time :");
         jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
 
-        jBtnRemove.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnRemove.setBackground(new java.awt.Color(231, 76, 60));
+        jBtnRemove.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnRemove.setText("Remove ");
         jBtnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 780, -1, 40));
+        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 780, -1, 40));
 
-        jBtnAddCategoryPromo.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jBtnAddCategoryPromo.setBackground(new java.awt.Color(46, 204, 113));
+        jBtnAddCategoryPromo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnAddCategoryPromo.setText("Add Category to Promo");
         jBtnAddCategoryPromo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
