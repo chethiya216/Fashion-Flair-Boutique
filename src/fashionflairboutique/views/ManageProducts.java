@@ -29,6 +29,9 @@ public class ManageProducts extends javax.swing.JFrame {
 
     private User currentUser;
     private Timer clockTimer;
+    private ProductDAO productDAO = new ProductDAO();
+    private int selectedProductId = -1;
+    private boolean isEditingSelectedProduct = false;
     /**
      * Creates new form AddProducts
      */
@@ -69,8 +72,6 @@ public class ManageProducts extends javax.swing.JFrame {
         }
     }
     
-    private int selectedProductId = -1;
-    private boolean isEditingSelectedProduct = false;
 
     // A. Init Data on Window Load
     private void initForm() {
@@ -277,7 +278,7 @@ public class ManageProducts extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jCBStatus = new javax.swing.JComboBox<>();
         jBtnSave = new javax.swing.JButton();
-        jBtnUpdate = new javax.swing.JButton();
+        jBtnRestock = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableShowProducts = new javax.swing.JTable();
         jLblMessage = new javax.swing.JLabel();
@@ -293,6 +294,7 @@ public class ManageProducts extends javax.swing.JFrame {
         jLblShowUser = new javax.swing.JLabel();
         jLblShowDate = new javax.swing.JLabel();
         jPanelsidebarPanelContainer = new javax.swing.JPanel();
+        jBtnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1080, 1920));
@@ -321,7 +323,7 @@ public class ManageProducts extends javax.swing.JFrame {
                 jBtnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 500, -1, -1));
+        jPanel1.add(jBtnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 470, -1, -1));
 
         jCBSize.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel1.add(jCBSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 310, 190, -1));
@@ -408,17 +410,17 @@ public class ManageProducts extends javax.swing.JFrame {
                 jBtnSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 500, -1, -1));
+        jPanel1.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 470, -1, -1));
 
-        jBtnUpdate.setBackground(new java.awt.Color(52, 152, 219));
-        jBtnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jBtnUpdate.setText("Update");
-        jBtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jBtnRestock.setBackground(new java.awt.Color(0, 153, 153));
+        jBtnRestock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBtnRestock.setText("Restock");
+        jBtnRestock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnUpdateActionPerformed(evt);
+                jBtnRestockActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 500, -1, -1));
+        jPanel1.add(jBtnRestock, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 520, -1, -1));
 
         jTableShowProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -510,6 +512,16 @@ public class ManageProducts extends javax.swing.JFrame {
         jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
         jPanel1.add(jPanelsidebarPanelContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 1080));
 
+        jBtnUpdate.setBackground(new java.awt.Color(52, 152, 219));
+        jBtnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jBtnUpdate.setText("Update");
+        jBtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnUpdateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 470, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -556,37 +568,41 @@ public class ManageProducts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
-    private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
-        if (!isEditingSelectedProduct || selectedProductId == -1) {
-//            JOptionPane.showMessageDialog(this, "Select a product from the table before updating.",
-//                "No Product Selected", JOptionPane.WARNING_MESSAGE);
-                UIUtils.showError(jLblMessage, "Select a product from the table before updating!!");
+    private void jBtnRestockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRestockActionPerformed
+        if (selectedProductId == -1) {
+            UIUtils.showError(jLblMessage, "Please select a product to restock.");
             return;
         }
-        try {
-            Product p = buildProductFromForm();
-            p.setProductId(selectedProductId);
 
-            ProductDAO dao = new ProductDAO();
-            if (dao.updateProduct(p)) {
-//                JOptionPane.showMessageDialog(this, "Product updated successfully!");
-                UIUtils.showSuccess(jLblMessage, "Product updated successfully!!!");
+        String quantityStr = jTFQty.getText().trim();
+        if (quantityStr.isEmpty() || !quantityStr.matches("\\d+")) {
+            UIUtils.showError(jLblMessage, "Please enter a valid positive quantity.");
+            return;
+        }
+
+        int qtyToAdd = Integer.parseInt(quantityStr);
+        if (qtyToAdd <= 0) {
+            UIUtils.showError(jLblMessage, "Quantity must be greater than zero.");
+            return;
+        }
+
+        try {
+            int userId = (currentUser != null) ? currentUser.getUserId() : 1;
+
+            boolean success = productDAO.restockProduct(selectedProductId, qtyToAdd, userId);
+
+            if (success) {
+                UIUtils.showSuccess(jLblMessage, "Stock restocked and inventory log created!");
                 clearForm();
                 triggerSearch();
+            } else {
+                UIUtils.showError(jLblMessage, "Failed to restock product.");
             }
-        } catch (NumberFormatException ex) {
-//            JOptionPane.showMessageDialog(this, "Enter valid numbers for price/quantity.",
-//                "Input Error", JOptionPane.ERROR_MESSAGE);
-                UIUtils.showError(jLblMessage, "Enter valid numbers for price/quantity.!!!");
-
         } catch (SQLException ex) {
             ex.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(),
-//                "Error", JOptionPane.ERROR_MESSAGE);
-                UIUtils.showError(jLblMessage, "Database error: " + ex.getMessage());
-
+            UIUtils.showError(jLblMessage, "Database error: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jBtnUpdateActionPerformed
+    }//GEN-LAST:event_jBtnRestockActionPerformed
 
     private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeleteActionPerformed
        if (selectedProductId == -1) {
@@ -629,6 +645,40 @@ public class ManageProducts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCBSearchCategoryItemStateChanged
 
+    private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateActionPerformed
+        if (selectedProductId == -1) {
+            UIUtils.showError(jLblMessage, "Please select a product from the table to update!");
+            return;
+        }
+
+        try {
+            // 1. Build updated product from form fields
+            Product p = buildProductFromForm();
+            p.setProductId(selectedProductId); // Set the active ID for SQL WHERE clause
+
+            if (p.getCategoryId() == 0) {
+                UIUtils.showError(jLblMessage, "Please select a valid category!");
+                return;
+            }
+
+            // 2. Perform DB update
+            boolean success = productDAO.updateProduct(p);
+
+            if (success) {
+                UIUtils.showSuccess(jLblMessage, "Product updated successfully!");
+                clearForm();
+                triggerSearch(); // Reload table data from DB
+            } else {
+                UIUtils.showError(jLblMessage, "Failed to update product details.");
+            }
+        } catch (NumberFormatException ex) {
+            UIUtils.showError(jLblMessage, "Enter valid numbers for prices and quantity!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            UIUtils.showError(jLblMessage, "Database error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jBtnUpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -668,6 +718,7 @@ public class ManageProducts extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnDelete;
     private javax.swing.JButton jBtnResetSearch;
+    private javax.swing.JButton jBtnRestock;
     private javax.swing.JButton jBtnSave;
     private javax.swing.JButton jBtnUpdate;
     private javax.swing.JComboBox<Category> jCBCategory;
