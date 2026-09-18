@@ -32,6 +32,7 @@ public class SidebarPanel extends javax.swing.JPanel {
     }
     
     private void buildMenu() {
+        addLogo("/resources/Fashion Flair Boutique Logo sidebar.png");
         String role = currentUser.getRole(); // e.g., "Admin", "Boutique Manager", "Cashier"
 
         // --- COMMON LINKS (ALL ROLES) ---
@@ -63,6 +64,36 @@ public class SidebarPanel extends javax.swing.JPanel {
             }
         });
     }
+    
+    private void addLogo(String logoPath) {
+        JLabel logoLabel = new JLabel();
+
+        try {
+            URL imgURL = getClass().getResource(logoPath);
+            if (imgURL != null) {
+                ImageIcon originalIcon = new ImageIcon(imgURL);
+                // Scale logo (e.g., width 140, height auto/proportional, or fixed like 120x120)
+                Image scaledImg = originalIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+                logoLabel.setIcon(new ImageIcon(scaledImg));
+            } else {
+                System.err.println("Logo image missing: " + logoPath);
+                logoLabel.setText("BOUTIQUE LOGO");
+                logoLabel.setForeground(Color.WHITE);
+                logoLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Add logo and spacing below it
+        add(logoLabel);
+        add(Box.createRigidArea(new Dimension(0, 20))); // 20px space below logo
+    }
+    
+    
 
     private void addNavButton(String text, String iconPath, ActionListener action) {
         JButton button = new JButton(text);
