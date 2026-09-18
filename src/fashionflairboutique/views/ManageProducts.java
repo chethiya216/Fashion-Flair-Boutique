@@ -450,7 +450,7 @@ public class ManageProducts extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 1350, 480));
 
-        jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 540, 30));
 
         jBtnResetSearch.setBackground(new java.awt.Color(127, 140, 141));

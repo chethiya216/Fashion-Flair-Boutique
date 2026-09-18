@@ -483,7 +483,7 @@
         <Component class="javax.swing.JLabel" name="jLblMessage">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Aarvark Cafe" size="18" style="0"/>
+              <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
           <Constraints>
