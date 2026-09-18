@@ -45,6 +45,21 @@ public class ProductCatalog extends javax.swing.JFrame {
         attachSearchListeners();
         filterCatalog(); // Load all products initially
         initForm(); // Loads categories AND calls filterCatalog()
+        
+        if (this.currentUser != null) {
+            // 1. Set BorderLayout on your newly created side panel
+            jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
+
+            // 2. Instantiate your custom SidebarPanel
+            SidebarPanel sidebar = new SidebarPanel(this, currentUser);
+
+            // 3. Add sidebar to the side panel container
+            jPanelsidebarPanelContainer.add(sidebar, java.awt.BorderLayout.CENTER);
+
+            // 4. Refresh both the container and the frame
+            jPanelsidebarPanelContainer.revalidate();
+            jPanelsidebarPanelContainer.repaint();
+        }
     }
     
     public void initForm(){
@@ -163,57 +178,59 @@ public class ProductCatalog extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jCBCategory = new javax.swing.JComboBox<>();
         jLblMessage = new javax.swing.JLabel();
+        jPanelsidebarPanelContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 252, 246));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel1.setText("Search Product ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 150, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 150, -1));
 
         jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
-        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 220, -1));
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 220, -1));
 
         jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel17.setText("Date  :");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel18.setText("Time :");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel19.setText("User :");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowUser.setText("User :");
-        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 290, -1));
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 290, -1));
 
         jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLblShowDate.setText("User :");
-        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 290, -1));
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 290, -1));
 
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));
         jLabel2.setText("Product Catalog");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel3.setText("Barcode :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, -1, -1));
 
         jTFBarcode.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 190, -1));
+        jPanel1.add(jTFBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 190, -1));
 
         jLabel4.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel4.setText("Category :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 410, -1, -1));
 
         jTFPName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPanel1.add(jTFPName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 190, -1));
+        jPanel1.add(jTFPName, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 190, -1));
 
         jTableCatalog.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jTableCatalog.setModel(new javax.swing.table.DefaultTableModel(
@@ -244,28 +261,32 @@ public class ProductCatalog extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableCatalog);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 1150, 610));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 1150, 610));
 
         jLabel5.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
         jLabel5.setText("Product Name :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, -1, -1));
 
         jCBCategory.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jCBCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Category" }));
-        jPanel1.add(jCBCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 190, 40));
+        jPanel1.add(jCBCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, 190, 40));
 
         jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 540, 20));
+        jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 540, 20));
+
+        jPanelsidebarPanelContainer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanelsidebarPanelContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 830));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1523, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1726, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -322,6 +343,7 @@ public class ProductCatalog extends javax.swing.JFrame {
     private javax.swing.JLabel jLblShowTime;
     private javax.swing.JLabel jLblShowUser;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelsidebarPanelContainer;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFBarcode;
     private javax.swing.JTextField jTFPName;
