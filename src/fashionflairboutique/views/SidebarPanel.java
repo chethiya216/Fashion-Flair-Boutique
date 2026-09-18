@@ -45,6 +45,7 @@ public class SidebarPanel extends javax.swing.JPanel {
             addNavButton("Sales Reports", "/resources/report.png", e -> navigateTo(new SalesReportsFrame(currentUser)));
             addNavButton("Manage Products", "/resources/product.png", e -> navigateTo(new ManageProducts(currentUser)));
             addNavButton("Discounts & Promos", "/resources/discount.png", e -> navigateTo(new DiscountsFrame(currentUser)));
+            addNavButton("Manage Categories", "/resources/categories.png", e -> navigateTo(new ManageCategories(currentUser)));
         }
 
         // --- LOGOUT (ALL ROLES) ---
