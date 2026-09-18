@@ -145,8 +145,8 @@ public class MainDashboard extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Fashion Flair Boutique Logo re.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, -1, -1));
 
-        jLblUname.setFont(new java.awt.Font("Aarvark Cafe", 1, 18)); // NOI18N
-        jPanel1.add(jLblUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 450, 30));
+        jLblUname.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jPanel1.add(jLblUname, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 450, 30));
 
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));

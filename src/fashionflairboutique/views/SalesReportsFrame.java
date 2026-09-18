@@ -153,20 +153,20 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 192, 223));
         jLabel2.setText("Sales Reports");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, -1, 80));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, -1, 80));
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
         jPanel2.setForeground(new java.awt.Color(153, 153, 153));
 
         jTFReferenceNo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jLabel21.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel21.setText("Select a date :");
 
         jDateChooser.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jBtnResetSearch.setBackground(new java.awt.Color(37, 99, 235));
-        jBtnResetSearch.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnResetSearch.setBackground(new java.awt.Color(127, 140, 141));
+        jBtnResetSearch.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnResetSearch.setForeground(new java.awt.Color(255, 255, 255));
         jBtnResetSearch.setText("Reset");
         jBtnResetSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -178,11 +178,11 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel22.setText("Search Report :");
 
-        jLabel23.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel23.setText("Reference No :");
 
         jBtnSearch.setBackground(new java.awt.Color(37, 99, 235));
-        jBtnSearch.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnSearch.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnSearch.setForeground(new java.awt.Color(255, 255, 255));
         jBtnSearch.setText("Search");
         jBtnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -194,8 +194,8 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
         jLabel24.setText("Export Report :");
 
-        jBtnExportExcel.setBackground(new java.awt.Color(37, 99, 235));
-        jBtnExportExcel.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnExportExcel.setBackground(new java.awt.Color(37, 179, 66));
+        jBtnExportExcel.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnExportExcel.setForeground(new java.awt.Color(255, 255, 255));
         jBtnExportExcel.setText("Excel Sheet");
         jBtnExportExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -204,8 +204,8 @@ public class SalesReportsFrame extends javax.swing.JFrame {
             }
         });
 
-        jBtnExportPDF.setBackground(new java.awt.Color(37, 99, 235));
-        jBtnExportPDF.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnExportPDF.setBackground(new java.awt.Color(174, 34, 5));
+        jBtnExportPDF.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnExportPDF.setForeground(new java.awt.Color(255, 255, 255));
         jBtnExportPDF.setText("PDF");
         jBtnExportPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -222,29 +222,28 @@ public class SalesReportsFrame extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTFReferenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel23))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel22))
-                        .addGap(52, 52, 52)
-                        .addComponent(jBtnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtnResetSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jBtnExportPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtnExportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jBtnExportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTFReferenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel23)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
                             .addComponent(jLabel24))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(52, 52, 52)
+                .addComponent(jBtnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnResetSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +261,7 @@ public class SalesReportsFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBtnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBtnResetSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jLabel24)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -271,7 +270,7 @@ public class SalesReportsFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, 1010, 270));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 1010, 270));
 
         jTable1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -302,63 +301,63 @@ public class SalesReportsFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 640, 1370, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 590, 1370, -1));
 
         jLblTotalItemsSold.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblTotalItemsSold.setText("jLabel1");
-        jPanel1.add(jLblTotalItemsSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 160, 300, 80));
+        jPanel1.add(jLblTotalItemsSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 110, 300, 80));
 
         jLblTotalRevenue.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblTotalRevenue.setText("jLabel1");
-        jPanel1.add(jLblTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 360, 70));
+        jPanel1.add(jLblTotalRevenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 360, 70));
 
         jLblTotalTransactions.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblTotalTransactions.setText("jLabel1");
-        jPanel1.add(jLblTotalTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 170, 280, 70));
+        jPanel1.add(jLblTotalTransactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, 280, 70));
 
         jLblAverageOrderValue.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLblAverageOrderValue.setText("jLabel1");
-        jPanel1.add(jLblAverageOrderValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 250, 320, 70));
+        jPanel1.add(jLblAverageOrderValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 200, 320, 70));
 
-        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
-        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 220, -1));
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 220, -1));
 
-        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel17.setText("Date  :");
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel17.setText("Date :");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Time :");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel19.setText("User :");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
-        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowUser.setText("User :");
-        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 290, -1));
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 290, -1));
 
-        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowDate.setText("User :");
-        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 290, -1));
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 290, -1));
 
-        jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel25.setText("Total Revenue :");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, -1, -1));
 
-        jLabel26.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel26.setText("Total Items Sold :");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 190, -1, -1));
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 140, -1, -1));
 
-        jLabel27.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel27.setText("Average Order Value :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 280, -1, -1));
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 230, -1, -1));
 
-        jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel28.setText("Total  Transactions :");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, -1, -1));
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, -1, -1));
 
         jPanelsidebarPanelContainer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanelsidebarPanelContainer.setLayout(new java.awt.BorderLayout());

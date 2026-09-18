@@ -77,10 +77,10 @@ public class PasswordReset extends javax.swing.JFrame {
                 jCBShowPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, -1, -1));
+        jPanel1.add(jCBShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 550, -1, -1));
 
         jBtnResetPass.setBackground(new java.awt.Color(0, 102, 255));
-        jBtnResetPass.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBtnResetPass.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jBtnResetPass.setForeground(new java.awt.Color(255, 255, 255));
         jBtnResetPass.setText("Reset Password");
         jBtnResetPass.addActionListener(new java.awt.event.ActionListener() {
@@ -88,19 +88,19 @@ public class PasswordReset extends javax.swing.JFrame {
                 jBtnResetPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 200, -1));
+        jPanel1.add(jBtnResetPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 200, 40));
 
         jPFPassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 520, 280, -1));
+        jPanel1.add(jPFPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 510, 280, -1));
 
         jTFEmail.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jPanel1.add(jTFEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 280, -1));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Password :");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Email");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
 
