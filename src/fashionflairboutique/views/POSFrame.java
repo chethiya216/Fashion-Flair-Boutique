@@ -296,29 +296,29 @@ public class POSFrame extends javax.swing.JFrame {
         jLabel2.setText("POS");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 40, 130, -1));
 
-        jLblShowTime.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowTime.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowTime.setText("User :");
-        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 220, -1));
+        jPanel1.add(jLblShowTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 220, -1));
 
-        jLabel17.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
-        jLabel17.setText("Date  :");
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel17.setText("Date :");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Time :");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel19.setText("User :");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
-        jLblShowUser.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowUser.setText("User :");
-        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 290, -1));
+        jPanel1.add(jLblShowUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 290, -1));
 
-        jLblShowDate.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblShowDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLblShowDate.setText("User :");
-        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 290, -1));
+        jPanel1.add(jLblShowDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 290, -1));
 
         jTableCart.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTableCart.setModel(new javax.swing.table.DefaultTableModel(
@@ -351,10 +351,10 @@ public class POSFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, 1090, 530));
 
-        jLblMessage.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLblMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jPanel1.add(jLblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, 720, 40));
 
-        jLabel20.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel20.setText("Barcode");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
 
@@ -365,7 +365,7 @@ public class POSFrame extends javax.swing.JFrame {
         jTFPName.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFPName, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 300, -1));
 
-        jLabel21.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel21.setText("Product Name :");
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, -1));
 
@@ -373,7 +373,7 @@ public class POSFrame extends javax.swing.JFrame {
         jTFPrice.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, 300, -1));
 
-        jLabel22.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel22.setText("Price :");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, -1, -1));
 
@@ -381,14 +381,14 @@ public class POSFrame extends javax.swing.JFrame {
         jTFAvailableQty.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFAvailableQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 410, 300, -1));
 
-        jLabel23.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel23.setText("Available Stock Quantity :");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, -1, -1));
 
         jTFQty.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPanel1.add(jTFQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, 300, -1));
 
-        jLabel24.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel24.setText("Qty :");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, -1));
 
@@ -396,12 +396,12 @@ public class POSFrame extends javax.swing.JFrame {
         jTFTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jPanel1.add(jTFTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 800, 300, -1));
 
-        jLabel25.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel25.setText("Total :");
         jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 770, -1, -1));
 
         jBtnCheckOut.setBackground(new java.awt.Color(0, 185, 129));
-        jBtnCheckOut.setFont(new java.awt.Font("Aarvark Cafe", 0, 48)); // NOI18N
+        jBtnCheckOut.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jBtnCheckOut.setForeground(new java.awt.Color(255, 255, 0));
         jBtnCheckOut.setText("CheckOut");
         jBtnCheckOut.addActionListener(new java.awt.event.ActionListener() {
@@ -412,7 +412,7 @@ public class POSFrame extends javax.swing.JFrame {
         jPanel1.add(jBtnCheckOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 800, 380, 140));
 
         jBtnAdd.setBackground(new java.awt.Color(37, 99, 235));
-        jBtnAdd.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnAdd.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnAdd.setForeground(new java.awt.Color(255, 255, 255));
         jBtnAdd.setText("Add");
         jBtnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -423,7 +423,7 @@ public class POSFrame extends javax.swing.JFrame {
         jPanel1.add(jBtnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 580, 120, 50));
 
         jBtnUpdate.setBackground(new java.awt.Color(217, 119, 6));
-        jBtnUpdate.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         jBtnUpdate.setText("Update");
         jBtnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -434,7 +434,7 @@ public class POSFrame extends javax.swing.JFrame {
         jPanel1.add(jBtnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 580, 120, 50));
 
         jBtnRemove.setBackground(new java.awt.Color(75, 85, 99));
-        jBtnRemove.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnRemove.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnRemove.setForeground(new java.awt.Color(255, 255, 255));
         jBtnRemove.setText("Remove");
         jBtnRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -442,10 +442,10 @@ public class POSFrame extends javax.swing.JFrame {
                 jBtnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 580, 110, 50));
+        jPanel1.add(jBtnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 580, 120, 50));
 
         jBtnClearTable.setBackground(new java.awt.Color(255, 0, 120));
-        jBtnClearTable.setFont(new java.awt.Font("Aarvark Cafe", 0, 22)); // NOI18N
+        jBtnClearTable.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jBtnClearTable.setForeground(new java.awt.Color(255, 255, 255));
         jBtnClearTable.setText("Clear Table");
         jBtnClearTable.addActionListener(new java.awt.event.ActionListener() {
@@ -455,7 +455,7 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jBtnClearTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 650, 330, 70));
 
-        jLabel26.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel26.setText("Paid :");
         jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 870, -1, -1));
 
@@ -467,7 +467,7 @@ public class POSFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jTFPaidAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 900, 300, -1));
 
-        jLabel27.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel27.setText("Change :");
         jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 870, -1, -1));
 
@@ -475,11 +475,11 @@ public class POSFrame extends javax.swing.JFrame {
         jTFChange.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jPanel1.add(jTFChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 900, 300, -1));
 
-        jLabel28.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel28.setText("Payment Method :");
         jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 870, -1, -1));
 
-        jLabel29.setFont(new java.awt.Font("Aarvark Cafe", 0, 18)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel29.setText("Discount  Pct :");
         jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 770, -1, -1));
 
@@ -498,7 +498,7 @@ public class POSFrame extends javax.swing.JFrame {
         jTFSubTotal.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jPanel1.add(jTFSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 800, 300, -1));
 
-        jLabel30.setFont(new java.awt.Font("Aarvark Cafe", 0, 24)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel30.setText("Sub Total :");
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 770, -1, -1));
 
