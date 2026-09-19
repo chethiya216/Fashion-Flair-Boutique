@@ -71,7 +71,8 @@ public class UserDAO {
     public boolean updatePassword(String identifier, String newPlainPassword) throws SQLException {
         String hashedPassword = hashPassword(newPlainPassword);
 
-        String query = "UPDATE users SET full_name=?, role=?, hashedPassword=?, status=? WHERE user_id=?";
+        String query = "UPDATE users SET password_hash = ? "
+                 + "WHERE (email = ? OR username = ?) AND status = 'Active'";
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -82,8 +83,6 @@ public class UserDAO {
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
-            
-            
         }
     }
 
