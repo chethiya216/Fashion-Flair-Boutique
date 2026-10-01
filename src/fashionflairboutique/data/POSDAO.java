@@ -76,9 +76,6 @@ public class POSDAO {
                 return false;
             }
 
-            // 3. Insert Sale_Items, deduct stock, log inventory change - one row at a time
-            //    (kept as individual statements rather than batched, so each line's
-            //    discount/quantity can be computed independently)
             try (PreparedStatement psItem = conn.prepareStatement(insertItemSQL);
                  PreparedStatement psStock = conn.prepareStatement(updateStockSQL);
                  PreparedStatement psLog = conn.prepareStatement(logInventorySQL)) {
@@ -142,21 +139,10 @@ public class POSDAO {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                // NOTE: not calling conn.close() here - DatabaseConnector is a
-                // singleton that reuses one shared Connection app-wide (see
-                // DatabaseConnector.getInstance()). Closing it here would break
-                // every other DAO call made after this one in the same session.
             }
         }
     }
 
-    /**
-     * FIX: now actually builds and returns a POS object (the original
-     * built a Product and tried to return it from a method declared to
-     * return POS - a type mismatch that would not compile).
-     * FIX: status comparison now matches the schema's actual casing
-     * ('Active', not 'ACTIVE').
-     */
     public POS getProductByBarcode(String barcodeText) {
         String sql =
             "SELECT p.*, " +
