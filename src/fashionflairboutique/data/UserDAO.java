@@ -23,11 +23,6 @@ public class UserDAO {
     public User authenticateUser(String identifier, String plainPassword) throws SQLException {
         // Hash the incoming plain text password directly using internal helper
         String hashedPassword = hashPassword(plainPassword);
-        
-        // DEBUG PRINTING - Check your IDE console when clicking Login
-        // System.out.println("Input Identifier: '" + identifier + "'");
-        // System.out.println("Input Password: '" + plainPassword + "'");
-        // System.out.println("Generated SHA-256 Hash: " + hashedPassword);
 
         String query = "SELECT user_id, username, email, full_name, role, status " +
                        "FROM users WHERE (email = ? OR username = ?) AND password_hash = ?";
@@ -56,8 +51,7 @@ public class UserDAO {
                         rs.getString("full_name"),
                         rs.getString("role"),
                         rs.getString("status")
-                            
-                            
+
                     );
                 }
             }

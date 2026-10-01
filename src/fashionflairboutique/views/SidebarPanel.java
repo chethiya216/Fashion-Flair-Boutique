@@ -39,12 +39,13 @@ public class SidebarPanel extends javax.swing.JPanel {
         addNavButton("Dashboard", "/resources/home.png", e -> navigateTo(new MainDashboard(currentUser)));
         addNavButton("POS / Sales", "/resources/pos.png", e -> navigateTo(new POSFrame(currentUser)));
         addNavButton("Product Catalog", "/resources/product-catalog.png", e -> navigateTo(new ProductCatalog(currentUser)));
+        addNavButton("Manage Products", "/resources/product.png", e -> navigateTo(new ManageProducts(currentUser)));
+
 
         // --- MANAGER ONLY ---
         if ("Boutique Manager".equalsIgnoreCase(role)) {
             addNavButton("User Management","/resources/user.png" ,e -> navigateTo(new ManageUser(currentUser)));
             addNavButton("Sales Reports", "/resources/report.png", e -> navigateTo(new SalesReportsFrame(currentUser)));
-            addNavButton("Manage Products", "/resources/product.png", e -> navigateTo(new ManageProducts(currentUser)));
             addNavButton("Discounts & Promos", "/resources/discount.png", e -> navigateTo(new DiscountsFrame(currentUser)));
             addNavButton("Manage Categories", "/resources/categories.png", e -> navigateTo(new ManageCategories(currentUser)));
         }
@@ -145,7 +146,7 @@ public class SidebarPanel extends javax.swing.JPanel {
         add(Box.createRigidArea(new Dimension(0, 8))); // Vertical spacing
     }
 
-    private void navigateTo(JFrame targetFrame) {
+        private void navigateTo(JFrame targetFrame) {
         parentFrame.dispose();
         targetFrame.setVisible(true);
     }

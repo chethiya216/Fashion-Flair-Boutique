@@ -23,7 +23,7 @@ public class MainDashboard extends javax.swing.JFrame {
 
         // Hide administrative options for non-managers
         if ("Sales Assistant".equalsIgnoreCase(currentUser.getRole())) {
-            jBtnManageProducts.setVisible(false);
+//            jBtnManageProducts.setVisible(false);
             jBtnManageDiscounts.setVisible(false);
             jBtnManageUsers.setVisible(false);
             jBtnSalesReports.setVisible(false);
